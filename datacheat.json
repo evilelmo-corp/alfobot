@@ -1,0 +1,15 @@
+[{"Data Science":"Es un campo interdisciplinar, podemos ver en el gráfico, mezcla programación , estadística y matemáticas y conocimiento específico",
+"Ciclo":"1.Recoger y Almacenar información \n 2.Analizar y crear \n 3. Poner en producción",
+"Machine learning":"Se divide en:\n Supervisado y no supervisado.\n Algoritmo al que no le decimos a un ordenador que hacer respecto a un escenario dado, sino que lo exponemos a diferentes escenarios donde el ordenador define sus parámetros y puede responder a nuevos escenarios.",
+"Modelos Supervisados":"Existen dos tipos:\n Clasificación o de regresión",
+"Modelos No supervisados":"Existen dos tipos:\n Clustering o de Reducción de dimensionalidad",
+"Modelos de clasificación":"K-nearest neighbors (kNN)\n Regresión logística \n Máquinas de soporte vectorial (SVM) \n Naïve bayes (NB) \n Árboles de decisión",
+"Modelos de regresión":"Lineal \n lineal simple \n polinomial",
+
+"Regresión lineal":"Técnica de modelado estadístico con la que se describe una variable continua como una función de una o varias variables predictoras.",
+"Regresión lineal simple":"Técnica de modelado estadístico con la que se describe una variable continua como una función de una variable predictora.",
+"Regresión polinomial":"Forma de regresión lineal en la que la relación entre la variable dependiente e independiente se modela como un polinomio de rgado n",
+"Clasificador Euclidiano":"Modelo de clasificación que utiliza la distancia euclidiana.",
+"Clasificador kNN":"'k Nearest Neighbors' \n Modelo de clasificación",
+"cod KNN":"from sklearn.neighbors import KNeighborsClassifier \n clasificador = KNeighborsClassifier(100, algorithm='brute') \n clasificador.fit(X_train, y_train) \n yhat = clasificador.predict(X_test)"
+}]
