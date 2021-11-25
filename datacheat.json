@@ -11,5 +11,7 @@
 "Regresión polinomial":"Forma de regresión lineal en la que la relación entre la variable dependiente e independiente se modela como un polinomio de rgado n",
 "Clasificador Euclidiano":"Modelo de clasificación que utiliza la distancia euclidiana.",
 "Clasificador kNN":"'k Nearest Neighbors' \n Modelo de clasificación",
-"cod KNN":"from sklearn.neighbors import KNeighborsClassifier \n clasificador = KNeighborsClassifier(100, algorithm='brute') \n clasificador.fit(X_train, y_train) \n yhat = clasificador.predict(X_test)"
+"cod KNN":"from sklearn.neighbors import KNeighborsClassifier \n clasificador = KNeighborsClassifier(100, algorithm='brute') \n clasificador.fit(X_train, y_train) \n yhat = clasificador.predict(X_test)",
+"cod NB":"from sklearn.naive_bayes import GaussianNB \n gnb = GaussianNB() \n gnb.fit(X_train, y_train) \n y_pred = gnb.predict(X_test)\n print("Accuracy: ", accuracy_score(y_test,y_pred))",
+"cod RL":"from sklearn.linear_model import LogisticRegression \n clf = LogisticRegression(max_iter=3500) \n clf.fit(X_train, y_train) \n yhat = clf.predict(X_test)"
 }]
