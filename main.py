@@ -5,7 +5,7 @@ import random
 import pandas as pd
 import nltk
 from tokenizador_frases import tokenizar # asi!!Exacto!:D jaja
-from modes import profe_mode
+#from modes import profe_mode
 
 df_data=pd.io.json.read_json('datacheat.json')
 df_data=df_data.T
@@ -34,7 +34,7 @@ async def despierta(ctx):
       if "duerme" in message.content:
         await client.logout()
       if message.content in list(df_data.key):
-        await message.channel.send(df_data[df_data['key']==str(message.content)]["value"])
+        await message.channel.send(str(df_data[df_data['key']==str(message.content)]["value"]))
 
   @client.command() 
   async def party(ctx):
