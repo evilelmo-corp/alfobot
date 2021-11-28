@@ -6,8 +6,7 @@ import pandas as pd
 import nltk
 from tokenizador_frases import tokenizar
 import re
-import keep_alive
-import math 
+import keep_alive 
 
 #Ingreso de datos
 df_data=pd.io.json.read_json('datacheat.json')
@@ -22,7 +21,6 @@ nltk.download('stopwords')
 palabras_funcionales=nltk.corpus.stopwords.words("spanish")
 palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'" ])
 df=pd.io.json.read_json('frasest.json')
-tokens_frases=df.columns.drop(['frase','tokenizado'])
 df_usuarios=pd.read_csv('pedidos.csv',delimiter=";")
 
 sep=";.;..;.;;"
@@ -182,37 +180,17 @@ class Partymode(commands.Cog):
                   a=1
               except:
                 pass
-            # if a==0:
-            #   for token in tokens_limpios:
-            #     try:
-            #       frase_pool=df[df[token]>0]
-            #       print(frase_pool['frase'])
-            #       r=random.randint(0,len(frase_pool)-1)
-            #       await message.channel.send(str(frase_pool.iloc[r][0]))
-            #       a=1
-            #       break
-            #     except:
-            #       pass
-
             if a==0:
-              frase_pool_pool=[]
-              for tok_mes in tokens_limpios:
-                le=math.ceil(len(tok_mes)*(2/3))
-                for tok_fra in tokens_frases:
-                  if tok_fra.startswith(tok_mes[:le]):
-                  #if tok_mes[:le] in tok_fra:
-                    frase_pool_pool.append(df[df[tok_fra]>0])
-              try:
-                r1=random.randint(0,len(frase_pool_pool)-1)
-                frase_pool=frase_pool_pool[r1]
-                r2=random.randint(0,len(frase_pool)-1)
-                print(frase_pool)
-                print(r2)
-                await message.channel.send(str(frase_pool.iloc[r2][0]))
-                a=1
-              except:
-                pass
-              
+              for token in tokens_limpios:
+                try:
+                  frase_pool=df[df[token]>0]
+                  print(frase_pool['frase'])
+                  r=random.randint(0,len(frase_pool)-1)
+                  await message.channel.send(str(frase_pool.iloc[r][0]))
+                  a=1
+                  break
+                except:
+                  pass
                   
             df_usuarios.at[len(df_usuarios)]=[message.author,tokens_limpios,datetime.now()]
             df_usuarios.to_csv("pedidos.csv",sep=";",index=False,encoding='utf-8-sig')
