@@ -3,16 +3,24 @@
     "frases.json": [
       {
         "id": "1a100420-36e5-4b1d-8f1a-7ff2b4e28e51",
-        "line": 31,
-        "version": 1663,
-        "index": 2258
+        "line": 5,
+        "version": 2258,
+        "index": 189
+      }
+    ],
+    "inputs.csv": [
+      {
+        "id": "d3204268-03dd-4a47-b4f9-b8735cc569c4",
+        "line": 154,
+        "version": 44,
+        "index": 16278
       }
     ],
     "main.py": [
       {
         "id": "8247d3a8-2402-41bf-9a5a-15eb08e09fdb",
         "line": 7,
-        "version": 4387,
+        "version": 5205,
         "index": 166
       }
     ]

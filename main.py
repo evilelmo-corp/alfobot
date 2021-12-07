@@ -20,14 +20,16 @@ nltk.download('spanish_grammars')
 nltk.download('vader_lexicon')
 nltk.download('stopwords')
 palabras_funcionales=nltk.corpus.stopwords.words("spanish")
-palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'" ])
+palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'","jaja","jaj","jajaj","ja","jajaja","jajajajaj","jajaja" ])
 df=pd.io.json.read_json('frasest.json')
 tokens_frases=df.columns.drop(['frase','tokenizado'])
 df_usuarios=pd.read_csv('pedidos.csv',delimiter=";")
 
 sep=";.;..;.;;"
 
-
+#LA lectura de emojis tiene un problema, cambiando a json creo que va mejor, pero dejo ambas para seguir probando. El problema es que no lee los emojis guardados, o los lee, pero no los reconoce como iguales. 
+#df_recepcion=pd.read_csv("recep.csv",delimiter=";")
+df_recepcion=pd.io.json.read_json("recep.json")
 # Variables de control de reproducción
 global modoprofe
 global modoparty
@@ -162,6 +164,9 @@ class Partymode(commands.Cog):
             elif "daniela" in tokens_limpios:
               await message.channel.send('Seguid el canal de Daniela, que es una crack. \n https://www.youtube.com/channel/UCtYNTthydqffzioKVhFrX5A')
               a=1
+            elif 'hackaton' in tokens_limpios:
+              r=random.randint(0,len(df)-1)
+              await message.channel.send(str("Van a hacer una regresión de la puta ostia, si han sido mis alumnos"))
             # elif "consumir" in tokens_limpios or "consume" in tokens_limpios or "consumes" in tokens_limpios or "consumo" in tokens_limpios:
             elif "bitcoin" in tokens_limpios:
               import requests
@@ -182,18 +187,6 @@ class Partymode(commands.Cog):
                   a=1
               except:
                 pass
-            # if a==0:
-            #   for token in tokens_limpios:
-            #     try:
-            #       frase_pool=df[df[token]>0]
-            #       print(frase_pool['frase'])
-            #       r=random.randint(0,len(frase_pool)-1)
-            #       await message.channel.send(str(frase_pool.iloc[r][0]))
-            #       a=1
-            #       break
-            #     except:
-            #       pass
-
             if a==0:
               frase_pool_pool=[]
               for tok_mes in tokens_limpios:
@@ -212,17 +205,55 @@ class Partymode(commands.Cog):
                 a=1
               except:
                 pass
-              
-                  
             df_usuarios.at[len(df_usuarios)]=[message.author,tokens_limpios,datetime.now()]
             df_usuarios.to_csv("pedidos.csv",sep=";",index=False,encoding='utf-8-sig')
-
-            #Guardando los mensajes completos con append (más ligero)
-            #(El separador es raro porque creo que debe ser una combinacion de caracteres que nunca se ponga en el chat, para no romper el csv)
             with open("inputs.csv","a") as fh:
-              fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
-
-
+                fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        channel = await self.client.fetch_channel(payload.channel_id)
+        message = await channel.fetch_message(payload.message_id)
+        user = await self.client.fetch_user(payload.user_id)
+        emoji = payload.emoji
+        if client.user == message.author:
+            if message.content in df_recepcion['Frases'].values:
+                print(df_recepcion[df_recepcion["Frases"]==message.content].index.values)
+                linea=df_recepcion[df_recepcion["Frases"]==message.content].index.values
+                conjunto=df_recepcion.columns
+                if emoji.name in conjunto:
+                    df_recepcion[emoji.name].iat[linea[0]]+=1
+                    print("encontrado")
+                else:
+                    print("no encontrado")
+                    df_recepcion[emoji.name]=0
+                    df_recepcion[emoji.name].iat[linea[0]]=1
+            else:
+                u_linea=len(df_recepcion)
+                linea_ceros=[0 for x in range(len(df_recepcion.columns))]
+                linea_ceros[0]=message.content
+                df_recepcion.at[u_linea]=linea_ceros
+                conjunto=set(df_recepcion.columns)
+                if emoji.name in conjunto:
+                    df_recepcion[emoji.name].iat[u_linea]+=1
+                    print("encontrado-primeravez")
+                else:
+                    print("no encontradoprimeravez")
+                    #conjunto.add(emoji)
+                    df_recepcion[emoji.name]=0
+                    df_recepcion[emoji.name].iat[u_linea]=1
+        df_recepcion.to_csv("recep.csv",index=False, sep=";")
+        df_recepcion.to_json("recep.json")
+            # if a==0:
+            #   for token in tokens_limpios:
+            #     try:
+            #       frase_pool=df[df[token]>0]
+            #       print(frase_pool['frase'])
+            #       r=random.randint(0,len(frase_pool)-1)
+            #       await message.channel.send(str(frase_pool.iloc[r][0]))
+            #       a=1
+            #       break
+            #     except:
+            #       pass
 # Refrescar frases party:
 @client.command()
 async def tokeniza(ctx):
