@@ -27,15 +27,12 @@ df_recepcion=pd.io.json.read_json("recep.json")
 #Modo party
 class Partymode(commands.Cog):
     def __init__(self, client):
-        self.client = cliente.iniciar()
+        self.client = client
         self._last_member = None
     #Respuesta a los mensajes que recibe Alfobot
     @commands.Cog.listener()
     async def on_message(self, message):
-        print(type(message.author))
-        print(message.author)
-        print("Alfo-BOT#6622")
-        if str(message.author) != "Alfo-BOT#6622":
+        if message.author != self.client.user:
             tokens=nltk.word_tokenize(message.content,"spanish")
             tokens_limpios=[] 
             tokens = [token.lower() for token in tokens]
@@ -50,7 +47,7 @@ class Partymode(commands.Cog):
               def check(m):
                 return m.content == 'si'
               try:
-                msg = await client.wait_for('message', check=check)
+                msg = await self.client.wait_for('message', check=check)
                 r=random.randint(0,len(df)-1)
                 await message.channel.send(str(df.iloc[r][0]))
               except:
@@ -114,10 +111,11 @@ class Partymode(commands.Cog):
         message = await channel.fetch_message(payload.message_id)
         user = await self.client.fetch_user(payload.user_id)
         emoji = payload.emoji
-        if "Alfo-BOT#6622" == str(message.author):
-            if message.content in df_recepcion['Frases'].values:
-                print(df_recepcion[df_recepcion["Frases"]==message.content].index.values)
-                linea=df_recepcion[df_recepcion["Frases"]==message.content].index.values
+        if self.client.user == message.author:
+            num_frase=df[df["frase"]==message.content].index.values[0]
+            if num_frase in df_recepcion['Frases'].values:
+                print(df_recepcion[df_recepcion["Frases"]==num_frase].index.values)
+                linea=df_recepcion[df_recepcion["Frases"]==num_frase].index.values
                 conjunto=df_recepcion.columns
                 if emoji.name in conjunto:
                     df_recepcion[emoji.name].iat[linea[0]]+=1
@@ -129,7 +127,7 @@ class Partymode(commands.Cog):
             else:
                 u_linea=len(df_recepcion)
                 linea_ceros=[0 for x in range(len(df_recepcion.columns))]
-                linea_ceros[0]=message.content
+                linea_ceros[0]=num_frase
                 df_recepcion.at[u_linea]=linea_ceros
                 conjunto=set(df_recepcion.columns)
                 if emoji.name in conjunto:

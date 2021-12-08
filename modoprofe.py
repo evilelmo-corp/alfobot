@@ -24,7 +24,7 @@ class Profemode(commands.Cog):
         self._last_member = None
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author != client.user:
+        if message.author != self.client.user:
             if message.content in list(df_data.key):
                 await message.channel.send(str(df_data[df_data['key']==str(message.content)]["value"].values[0])+str(client.user))
 def setup(client):
