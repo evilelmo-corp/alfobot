@@ -1,14 +1,9 @@
 #modelo_de_puntuacion_de_frases
 import discord 
 from discord.ext import commands
-from tokenizador_frases import tokenizar
-import keep_alive
 from datetime import datetime
 import random
 import pandas as pd
-import nltk
-import re
-import math
 
 def apertura():
 	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
@@ -28,7 +23,7 @@ def recopilacion(df_frases,df_recepcion,df_puntuacion):
 			linea_ceros=[0 for x in range(len(df_puntuacion.columns))]
 			linea_ceros[0]=num_frase
 			df_puntuacion.at[u_linea]=linea_ceros
-			df_puntuacion['num_reacciones'].iat[index_punt]=numero_reacciones
+			df_puntuacion['num_reacciones'].iat[u_linea]=numero_reacciones
 	df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
 
 def guardarreacciones(usuario, mensaje,emoji):
@@ -63,6 +58,20 @@ def guardarreacciones(usuario, mensaje,emoji):
 				df_recepcion[emoji.name].iat[u_linea]=1
 		df_recepcion.to_csv(f"cogs/datos/recep.csv",index=False, sep=";")
 		df_recepcion.to_json(f"cogs/datos/recep.json")
+def guardarjaja(frase):
+	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
+	df_puntuacion=pd.io.json.read_json(f"cogs/datos/puntuacion.json")
+	num_frase=df_frases[df_frases["frase"]==frase].index.values[0]
+	if num_frase in df_puntuacion['frases'].values:
+		index_punt = df_puntuacion[df_puntuacion['frases']==num_frase].index.values[0]
+		df_puntuacion['num_risas'].iat[index_punt]+=1
+	else:
+		u_linea=len(df_puntuacion)
+		linea_ceros=[0 for x in range(len(df_puntuacion.columns))]
+		linea_ceros[0]=num_frase
+		df_puntuacion.loc[u_linea]=linea_ceros
+		df_puntuacion['num_risas'].iat[u_linea]=1
+	df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
 
 #x,y,z=apertura()
 #recopilacion(x,y,z)

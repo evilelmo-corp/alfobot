@@ -46,6 +46,7 @@ class Partymode(commands.Cog):
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
             tokens_limpios=modelolemat.tokenizar(message)
+            modelolemat.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
               await message.channel.send('Hola, ¿Quieres un hack de vida?')
@@ -91,11 +92,20 @@ class Partymode(commands.Cog):
             if a==0:
               frase_pool_pool = modelolemat.creacionpool(tokens_limpios)
               try:
-                await message.channel.send(modelolemat.seleccionrespuesta(frase_pool_pool))
+                respuesta= modelolemat.seleccionrespuesta(frase_pool_pool)
+                await message.channel.send(respuesta)
+                def check(m):
+                    return bool(re.search(r'jaj',m.content))
+                try:
+                    await self.client.wait_for('message', check=check)#msg = 
+                    modelopuntuacion.guardarjaja(respuesta)
+                    await message.channel.send(str("Soy un puto genio"))
+                except:
+                    await message.channel.send('Si no me creen es su problema')
                 a=1
               except:
                 pass
-            modelolemat.guardadoinputs(message,tokens_limpios)
+            
     #Guardado de reacciones a las propias reacciones
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
