@@ -1,11 +1,19 @@
 #modelo_de_puntuacion_de_frases
+import discord 
+from discord.ext import commands
+from tokenizador_frases import tokenizar
+import keep_alive
+from datetime import datetime
+import random
 import pandas as pd
-
+import nltk
+import re
+import math
 
 def apertura():
-	df_frases=pd.io.json.read_json('frasest.json')
-	df_recepcion=pd.io.json.read_json("recep.json")
-	df_puntuacion=pd.io.json.read_json("puntuacion.json")
+	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
+	df_recepcion=pd.io.json.read_json(f"cogs/datos/recep.json")
+	df_puntuacion=pd.io.json.read_json(f"cogs/datos/puntuacion.json")
 	return df_frases,df_recepcion,df_puntuacion
 
 def recopilacion(df_frases,df_recepcion,df_puntuacion):
@@ -21,13 +29,13 @@ def recopilacion(df_frases,df_recepcion,df_puntuacion):
 			linea_ceros[0]=num_frase
 			df_puntuacion.at[u_linea]=linea_ceros
 			df_puntuacion['num_reacciones'].iat[index_punt]=numero_reacciones
-	df_puntuacion.to_json("puntuacion.json")
+	df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
 
 def guardarreacciones(usuario, mensaje,emoji):
-	df_frases=pd.io.json.read_json('frasest.json')
-	df_recepcion=pd.io.json.read_json("recep.json")
+	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
+	df_recepcion=pd.io.json.read_json(f"cogs/datos/recep.json")
 	if usuario == mensaje.author:
-		num_frase=df[df["frase"]==mensaje.content].index.values[0]
+		num_frase=df_frases[df_frases["frase"]==mensaje.content].index.values[0]
 		if num_frase in df_recepcion['Frases'].values:
 			print(df_recepcion[df_recepcion["Frases"]==num_frase].index.values)
 			linea=df_recepcion[df_recepcion["Frases"]==num_frase].index.values
@@ -53,8 +61,8 @@ def guardarreacciones(usuario, mensaje,emoji):
 				#conjunto.add(emoji)
 				df_recepcion[emoji.name]=0
 				df_recepcion[emoji.name].iat[u_linea]=1
-		df_recepcion.to_csv("recep.csv",index=False, sep=";")
-		df_recepcion.to_json("recep.json")
+		df_recepcion.to_csv(f"cogs/datos/recep.csv",index=False, sep=";")
+		df_recepcion.to_json(f"cogs/datos/recep.json")
 
 #x,y,z=apertura()
 #recopilacion(x,y,z)

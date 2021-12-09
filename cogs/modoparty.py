@@ -1,24 +1,29 @@
 import discord 
-from discord.ext import commands 
+from discord.ext import commands
+from tokenizador_frases import tokenizar
+import keep_alive
 from datetime import datetime
 import random
 import pandas as pd
 import nltk
 import re
-import math 
-import cliente
+import math
+from cogs import modelolemat
+from cogs import modelopuntuacion
 
 #Ingreso de datos
 
-nltk.download('punkt')
-nltk.download('spanish_grammars')
-nltk.download('vader_lexicon')
-nltk.download('stopwords')
-palabras_funcionales=nltk.corpus.stopwords.words("spanish")
-palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'","jaja","jaj","jajaj","ja","jajaja","jajajajaj","jajaja" ])
-df=pd.io.json.read_json('frasest.json')
+# nltk.download('punkt')
+# nltk.download('spanish_grammars')
+# nltk.download('vader_lexicon')
+# nltk.download('stopwords')
+# palabras_funcionales=nltk.corpus.stopwords.words("spanish")
+# palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'","jaja","jaj","jajaj","ja","jajaja","jajajajaj","jajaja" ])
+
+df=pd.io.json.read_json(f'cogs/datos/frasest.json')
 tokens_frases=df.columns.drop(['frase','tokenizado'])
-df_usuarios=pd.read_csv('pedidos.csv',delimiter=";")
+
+df_usuarios=pd.read_csv(f'cogs/datos/pedidos.csv',delimiter=";")
 
 sep=";.;..;.;;"
 
@@ -30,7 +35,7 @@ commands_lista=[
     'Alfobot tokeniza']
 
 #df_recepcion=pd.read_csv("recep.csv",delimiter=";")
-df_recepcion=pd.io.json.read_json("recep.json")
+df_recepcion=pd.io.json.read_json(f'cogs/datos/recep.json')
 #Modo party
 class Partymode(commands.Cog):
     def __init__(self, client):
@@ -40,13 +45,14 @@ class Partymode(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
-            tokens=nltk.word_tokenize(message.content,"spanish")
-            tokens_limpios=[] 
-            tokens = [token.lower() for token in tokens]
-            for token in tokens: 
-                if token not in palabras_funcionales: 
-                    tokens_limpios.append(token)
-            print(tokens_limpios)
+            # tokens=nltk.word_tokenize(message.content,"spanish")
+            # tokens_limpios=[] 
+            # tokens = [token.lower() for token in tokens]
+            # for token in tokens: 
+            #     if token not in palabras_funcionales: 
+            #         tokens_limpios.append(token)
+            # print(tokens_limpios)
+            tokens_limpios=modelolemat.tokenizar(message)
             a=0
             if 'hola' in tokens_limpios:
               await message.channel.send('Hola, ¿Quieres un hack de vida?')
@@ -108,8 +114,8 @@ class Partymode(commands.Cog):
               except:
                 pass
             df_usuarios.at[len(df_usuarios)]=[message.author,tokens_limpios,datetime.now()]
-            df_usuarios.to_csv("pedidos.csv",sep=";",index=False,encoding='utf-8-sig')
-            with open("inputs.csv","a") as fh:
+            df_usuarios.to_csv(f"cogs/datos/pedidos.csv",sep=";",index=False,encoding='utf-8-sig')
+            with open(f"cogs/datos/inputs.csv","a") as fh:
                 fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
     #Guardado de reacciones a las propias reacciones
     @commands.Cog.listener()
@@ -118,34 +124,35 @@ class Partymode(commands.Cog):
         message = await channel.fetch_message(payload.message_id)
         user = await self.client.fetch_user(payload.user_id)
         emoji = payload.emoji
-        if self.client.user == message.author:
-            num_frase=df[df["frase"]==message.content].index.values[0]
-            if num_frase in df_recepcion['Frases'].values:
-                print(df_recepcion[df_recepcion["Frases"]==num_frase].index.values)
-                linea=df_recepcion[df_recepcion["Frases"]==num_frase].index.values
-                conjunto=df_recepcion.columns
-                if emoji.name in conjunto:
-                    df_recepcion[emoji.name].iat[linea[0]]+=1
-                    print("encontrado")
-                else:
-                    print("no encontrado")
-                    df_recepcion[emoji.name]=0
-                    df_recepcion[emoji.name].iat[linea[0]]=1
-            else:
-                u_linea=len(df_recepcion)
-                linea_ceros=[0 for x in range(len(df_recepcion.columns))]
-                linea_ceros[0]=num_frase
-                df_recepcion.at[u_linea]=linea_ceros
-                conjunto=set(df_recepcion.columns)
-                if emoji.name in conjunto:
-                    df_recepcion[emoji.name].iat[u_linea]+=1
-                    print("encontrado-primeravez")
-                else:
-                    print("no encontradoprimeravez")
-                    #conjunto.add(emoji)
-                    df_recepcion[emoji.name]=0
-                    df_recepcion[emoji.name].iat[u_linea]=1
-        df_recepcion.to_csv("recep.csv",index=False, sep=";")
-        df_recepcion.to_json("recep.json")
+        modelopuntuacion.guardarreacciones(self.client.user, message,emoji)
+        # if self.client.user == message.author:
+        #     num_frase=df[df["frase"]==message.content].index.values[0]
+        #     if num_frase in df_recepcion['Frases'].values:
+        #         print(df_recepcion[df_recepcion["Frases"]==num_frase].index.values)
+        #         linea=df_recepcion[df_recepcion["Frases"]==num_frase].index.values
+        #         conjunto=df_recepcion.columns
+        #         if emoji.name in conjunto:
+        #             df_recepcion[emoji.name].iat[linea[0]]+=1
+        #             print("encontrado")
+        #         else:
+        #             print("no encontrado")
+        #             df_recepcion[emoji.name]=0
+        #             df_recepcion[emoji.name].iat[linea[0]]=1
+        #     else:
+        #         u_linea=len(df_recepcion)
+        #         linea_ceros=[0 for x in range(len(df_recepcion.columns))]
+        #         linea_ceros[0]=num_frase
+        #         df_recepcion.at[u_linea]=linea_ceros
+        #         conjunto=set(df_recepcion.columns)
+        #         if emoji.name in conjunto:
+        #             df_recepcion[emoji.name].iat[u_linea]+=1
+        #             print("encontrado-primeravez")
+        #         else:
+        #             print("no encontradoprimeravez")
+        #             #conjunto.add(emoji)
+        #             df_recepcion[emoji.name]=0
+        #             df_recepcion[emoji.name].iat[u_linea]=1
+        # df_recepcion.to_csv(f"cogs/datos/recep.csv",index=False, sep=";")
+        # df_recepcion.to_json(f"cogs/datos/recep.json")
 def setup(client):
     client.add_cog(Partymode(client))

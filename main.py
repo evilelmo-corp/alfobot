@@ -1,14 +1,13 @@
 import discord 
-from discord.ext import commands 
+from discord.ext import commands
+from tokenizador_frases import tokenizar
+import keep_alive
 from datetime import datetime
 import random
 import pandas as pd
 import nltk
-from tokenizador_frases import tokenizar
 import re
-import keep_alive
 import math
-import cliente 
 
 global modoprofe
 global modoparty
@@ -16,8 +15,7 @@ modoprofe=False
 modoparty=False
 
 #Set del BOT
-client = cliente.iniciar()
-#client = commands.Bot(command_prefix='Alfobot ', description="simplificando DATOS dejé atrás mi forma corpórea")
+client = commands.Bot(command_prefix='Alfobot ', description="simplificando DATOS dejé atrás mi forma corpórea")
 
 @client.event
 async def on_ready():
@@ -30,12 +28,12 @@ async def despierta(ctx):
     global modoprofe
     global modoparty
     if modoprofe == False:
-        client.load_extension(f'modoprofe')
+        client.load_extension(f'cogs.modoprofe')
         #client.add_cog(Profemode(client))
         modoprofe=True
         await ctx.send('Chicos, vamos serios. Hablad.')
         try:
-          client.unload_extension(f'modoparty')
+          client.unload_extension(f'cogs.modoparty')
           #client.remove_cog('Partymode')
           modoparty=False
         except:
@@ -49,12 +47,12 @@ async def profe(ctx):
     global modoprofe
     global modoparty
     if modoprofe == False:
-        client.load_extension(f'modoprofe')
+        client.load_extension(f'cogs.modoprofe')
         #client.add_cog(Profemode(client))
         modoprofe=True
         await ctx.send('Chicos, vamos serios. Hablad')
         try:
-          client.unload_extension(f'modoparty')
+          client.unload_extension(f'cogs.modoparty')
           #client.remove_cog('Partymode')
           modoparty=False
         except:
@@ -67,13 +65,13 @@ async def party(ctx):
     global modoparty
     global modoprofe
     if modoparty==False:
-        client.load_extension(f'modoparty')
+        client.load_extension(f'cogs.modoparty')
         #client.add_cog(Partymode(client))
         modoparty=True
         await ctx.send('Chicos estoy aquí, hablen')
         try:
           #client.remove_cog('Profemode')
-          client.unload_extension(f'modoprofe')
+          client.unload_extension(f'cogs.modoprofe')
           modoprofe=False
         except:
           pass
@@ -84,12 +82,12 @@ async def duerme(ctx):
     global modoparty
     global modoprofe
     if modoprofe == True:
-        client.unload_extension(f'modoprofe')
+        client.unload_extension(f'cogs.modoprofe')
         #client.remove_cog('Profemode')
         modoprofe=False
         await ctx.send('Chao chicos, nos vemos mañana')
     elif modoparty == True:
-        client.unload_extension(f'modoparty')
+        client.unload_extension(f'cogs.modoparty')
         #client.remove_cog('Partymode')
         modoparty=False
         # await ctx.send('¿Quién dijo que me voy a dormir?')
@@ -104,4 +102,4 @@ async def tokeniza(ctx):
 
 keep_alive.keep_alive()
 
-cliente.correr(client)
+client.run('OTEzMTkxMTk4MTE2Njg3OTIy.YZ65kw.id9oVV8sMjXLkuEpR1FlC6-NNZA')
