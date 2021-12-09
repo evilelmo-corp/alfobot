@@ -22,6 +22,13 @@ df_usuarios=pd.read_csv('pedidos.csv',delimiter=";")
 
 sep=";.;..;.;;"
 
+commands_lista=[
+    'Alfobot despierta',
+    'Alfobot duerme',
+    'Alfobot profe',
+    'Alfobot party',
+    'Alfobot tokeniza']
+
 #df_recepcion=pd.read_csv("recep.csv",delimiter=";")
 df_recepcion=pd.io.json.read_json("recep.json")
 #Modo party
@@ -32,7 +39,7 @@ class Partymode(commands.Cog):
     #Respuesta a los mensajes que recibe Alfobot
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author != self.client.user:
+        if (message.author != self.client.user) and (message.content not in commands_lista):
             tokens=nltk.word_tokenize(message.content,"spanish")
             tokens_limpios=[] 
             tokens = [token.lower() for token in tokens]

@@ -35,7 +35,8 @@ async def despierta(ctx):
         modoprofe=True
         await ctx.send('Chicos, vamos serios. Hablad.')
         try:
-          client.remove_cog('Partymode')
+          client.unload_extension(f'modoparty')
+          #client.remove_cog('Partymode')
           modoparty=False
         except:
           pass
@@ -53,7 +54,8 @@ async def profe(ctx):
         modoprofe=True
         await ctx.send('Chicos, vamos serios. Hablad')
         try:
-          client.remove_cog('Partymode')
+          client.unload_extension(f'modoparty')
+          #client.remove_cog('Partymode')
           modoparty=False
         except:
           pass
@@ -70,7 +72,8 @@ async def party(ctx):
         modoparty=True
         await ctx.send('Chicos estoy aquí, hablen')
         try:
-          client.remove_cog('Profemode')
+          #client.remove_cog('Profemode')
+          client.unload_extension(f'modoprofe')
           modoprofe=False
         except:
           pass
@@ -81,11 +84,13 @@ async def duerme(ctx):
     global modoparty
     global modoprofe
     if modoprofe == True:
-        client.remove_cog('Profemode')
+        client.unload_extension(f'modoprofe')
+        #client.remove_cog('Profemode')
         modoprofe=False
         await ctx.send('Chao chicos, nos vemos mañana')
     elif modoparty == True:
-        client.remove_cog('Partymode')
+        client.unload_extension(f'modoparty')
+        #client.remove_cog('Partymode')
         modoparty=False
         # await ctx.send('¿Quién dijo que me voy a dormir?')
         await ctx.send('Oh no, se me acabó el café')
