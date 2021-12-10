@@ -13,19 +13,6 @@ from cogs import modelopuntuacion
 
 #Ingreso de datos
 
-# nltk.download('punkt')
-# nltk.download('spanish_grammars')
-# nltk.download('vader_lexicon')
-# nltk.download('stopwords')
-# palabras_funcionales=nltk.corpus.stopwords.words("spanish")
-# palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'","jaja","jaj","jajaj","ja","jajaja","jajajajaj","jajaja" ])
-
-#df=pd.io.json.read_json(f'cogs/datos/frasest.json')
-#tokens_frases=df.columns.drop(['frase','tokenizado'])
-
-#df_usuarios=pd.read_csv(f'cogs/datos/pedidos.csv',delimiter=";")
-
-#sep=";.;..;.;;"
 
 commands_lista=[
     'Alfobot despierta',
@@ -45,7 +32,7 @@ class Partymode(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
-            tokens_limpios=modelolemat.tokenizar(message)
+            irradiated,tokens_limpios=modelolemat.lemmatizer(message)
             modelolemat.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
@@ -59,25 +46,25 @@ class Partymode(commands.Cog):
                 await message.channel.send(str(df.iloc[r][0]))
               except:
                 await message.channel.send('Chicos, No os escucho! ¿Queréis o no?')
-            elif 'elmo' in tokens_limpios:
-              await message.channel.send('Es el verdadero Dios')
-              a=1
-            elif 'jc' in tokens_limpios:
-              await message.channel.send('JC? Quién es JC? si nunca puso cámara no existe.')
-              a=1
-            elif 'hack' in tokens_limpios:
-              r=random.randint(0,len(df)-1)
-              await message.channel.send(str(df.iloc[r][0]))
-            elif "kahoot" in tokens_limpios:
-              await message.channel.send('NOOOOOOO que me deprime')
-              a=1
-            elif "daniela" in tokens_limpios:
-              await message.channel.send('Seguid el canal de Daniela, que es una crack. \n https://www.youtube.com/channel/UCtYNTthydqffzioKVhFrX5A')
-              a=1
-            elif 'hackaton' in tokens_limpios:
-              r=random.randint(0,len(df)-1)
-              await message.channel.send(str("Van a hacer una regresión de la puta ostia, si han sido mis alumnos"))
-            # elif "consumir" in tokens_limpios or "consume" in tokens_limpios or "consumes" in tokens_limpios or "consumo" in tokens_limpios:
+            # elif 'elmo' in tokens_limpios:
+            #   await message.channel.send('Es el verdadero Dios')
+            #   a=1
+            # elif 'jc' in tokens_limpios:
+            #   await message.channel.send('JC? Quién es JC? si nunca puso cámara no existe.')
+            #   a=1
+            # elif 'hack' in tokens_limpios:
+            #   r=random.randint(0,len(df)-1)
+            #   await message.channel.send(str(df.iloc[r][0]))
+            # elif "kahoot" in tokens_limpios:
+            #   await message.channel.send('NOOOOOOO que me deprime')
+            #   a=1
+            # elif "daniela" in tokens_limpios:
+            #   await message.channel.send('Seguid el canal de Daniela, que es una crack. \n https://www.youtube.com/channel/UCtYNTthydqffzioKVhFrX5A')
+            #   a=1
+            # elif 'hackaton' in tokens_limpios:
+            #   r=random.randint(0,len(df)-1)
+            #   await message.channel.send(str("Van a hacer una regresión de la puta ostia, si han sido mis alumnos"))
+            # # elif "consumir" in tokens_limpios or "consume" in tokens_limpios or "consumes" in tokens_limpios or "consumo" in tokens_limpios:
             elif "bitcoin" in tokens_limpios:
               import requests
               from bs4 import BeautifulSoup
@@ -90,9 +77,11 @@ class Partymode(commands.Cog):
               await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando? ')
               a=1
             if a==0:
-              frase_pool_pool = modelolemat.creacionpool(tokens_limpios)
+              frase_pool_pool = modelolemat.creacionpool(tokens_limpios, 80)
+              print(frase_pool_pool)
               try:
                 respuesta= modelolemat.seleccionrespuesta(frase_pool_pool)
+                print(respuesta)
                 await message.channel.send(respuesta)
                 def check(m):
                     return bool(re.search(r'jaj',m.content))
