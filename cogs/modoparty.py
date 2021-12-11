@@ -11,9 +11,6 @@ import math
 from cogs import modelolemat
 from cogs import modelopuntuacion
 
-#Ingreso de datos
-
-
 commands_lista=[
     'Alfobot despierta',
     'Alfobot duerme',
@@ -23,6 +20,7 @@ commands_lista=[
 
 #df_recepcion=pd.read_csv("recep.csv",delimiter=";")
 #df_recepcion=pd.io.json.read_json(f'cogs/datos/recep.json')
+
 #Modo party
 class Partymode(commands.Cog):
     def __init__(self, client):
@@ -71,27 +69,33 @@ class Partymode(commands.Cog):
               url = "https://markets.businessinsider.com/currencies/btc-eur"
               response = requests.get(url)
               soup = BeautifulSoup(response.text, "html.parser")
-              bitcoin_value='NaN'
-              bitcoin_value = soup.find("span", class_="price-section__current-value").text
+              bitcoin_value = 'NaN'
+              bitcoin_value = soup.find("span", class_ = "price-section__current-value").text
               #if not bitcoin_value: bitcoin_value = 'NaN'
-              await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando? ')
-              a=1
-            if a==0:
+              await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando?')
+              a = 1
+            if a == 0:
               frase_pool_pool = modelolemat.creacionpool(tokens_limpios, 80)
-              #print(frase_pool_pool)
+              print(frase_pool_pool)
               try:
-                respuesta= modelolemat.seleccionrespuesta(frase_pool_pool)
-                #print(respuesta)
+                respuesta = modelolemat.seleccionrespuesta(frase_pool_pool)
+                print(respuesta)
                 await message.channel.send(respuesta)
-                def check(m):
-                    return bool(re.search(r'jaj',m.content))
+                def checkRisa(m):
+                  return bool(re.search(r'jaj',m.content))
+                risa = False
+
                 try:
-                    await self.client.wait_for('message', check=check)#msg = 
-                    modelopuntuacion.guardarjaja(respuesta)
+                  risa = await self.client.wait_for('message', timeout = 5.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
+                except:
+                  pass
+
+                if risa != False:
+                  modelopuntuacion.guardarjaja(respuesta)
                     await message.channel.send(str("Soy un puto genio"))
                 except:
                     await message.channel.send('Si no me creen es su problema')
-                a=1
+                a = 1
               except:
                 pass
             

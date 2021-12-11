@@ -58,6 +58,7 @@ def guardarreacciones(usuario, mensaje,emoji):
 				df_recepcion[emoji.name].iat[u_linea]=1
 		df_recepcion.to_csv(f"cogs/datos/recep.csv",index=False, sep=";")
 		df_recepcion.to_json(f"cogs/datos/recep.json")
+		
 def guardarjaja(frase):
 	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
 	df_puntuacion=pd.io.json.read_json(f"cogs/datos/puntuacion.json")
