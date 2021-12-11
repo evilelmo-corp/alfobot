@@ -95,6 +95,7 @@ def lemmatizer(to_tokenize):
 	#Si la cantidad de tokens no lematizados es superior a la cantidad de tokens leídos busca en el diccionario.
 	#Para evitar que busque innecesariamente, se lo puede modificar sin problema
 	if len(sin_lemma)>len(irradiated):
+		a_picklelizar=[]
 		for tok in sin_lemma:
 			try:
 				print(tok,"TOK")
@@ -102,13 +103,18 @@ def lemmatizer(to_tokenize):
 				irradiated.append(lema)
 				if tipo == "s" or tipo == "v":
 					topics.append(lema)
+				a_picklelizar.append([tok,lema])
 			except:
 				sin_lemma_def.append(tok)
+		with open(f"cogs/datos/a_picklelizar.txt","a") as fh:
+			for elemento in a_picklelizar:
+				fh.write(str(elemento)+",")
 	print(sin_lemma_def,"sin_lemma_def",len(sin_lemma_def))
 	if len(sin_lemma_def)>0:
 		with open(f"cogs/datos/a_lemmatizar.txt","a") as fh:
 			for elemento in sin_lemma_def:
-				fh.write(";"+elemento)
+				fh.write(";"+str(elemento))
+	#agregar los sin lemma definitivos a topics permite captar los nombres propios.
 	topics.extend(sin_lemma_def)
 	return irradiated, topics
 

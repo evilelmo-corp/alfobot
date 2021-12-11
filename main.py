@@ -1,6 +1,6 @@
 import discord 
 from discord.ext import commands
-from tokenizador_frases import tokenizar
+import tokenizador_frases as tkf
 import keep_alive
 from datetime import datetime
 import random
@@ -21,6 +21,8 @@ client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando 
 async def on_ready():
     await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "simplificar DATOS dejé atrás mi forma corpórea"))
     print('My bot is ready')
+
+
 
 #Comando de encendido
 @client.command()
@@ -101,8 +103,10 @@ async def duerme(ctx):
 
 # Refrescar frases party:
 @client.command()
-async def tokeniza(ctx):
-    await tokenizar()
+async def tokeniza(ctx, arg):
+    print(arg)
+    await ctx.send(tkf.tokenizador_frase_unica(arg))
+
 
 keep_alive.keep_alive()
 

@@ -112,3 +112,21 @@ def tokenizar():
               df[f].iat[n]=1
 
   df.to_json(f'cogs/datos/frasest.json')
+def tokenizador_frase_unica(frase):
+  """ Incluye frases en la base de datos de frases y las tockeniza,
+  Además comprueba que no estén antes, ni la frase ni los lemmas-tokkens """
+  df=pd.io.json.read_json(f'cogs/datos/frasest.json')
+  if frase in df['frase'].values:
+    return "Mi genialidad ya incluía esta frase"
+  u_linea=len(df)
+  row=[0 for x in range(len(df.columns))]
+  row[0]=frase
+  row[1]=lemmatizer(frase)
+  if row[1] in list(df['tokenizado'].values):
+    return "Mi genialidad ya incluía esta frase"
+  df.loc[u_linea]=row
+  df.to_json(f'cogs/datos/frasest.json')
+  return "Obvio que pensaba decir eso más adelante"
+
+
+
