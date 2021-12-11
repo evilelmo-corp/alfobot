@@ -8,8 +8,13 @@ import pandas as pd
 import nltk
 import re
 import math
+import json
+import aiohttp
+
 from cogs import modelolemat
 from cogs import modelopuntuacion
+
+apiGiphy='jL3uqKUkUBo2yiw9zOOimLlx8VDI3IiT'
 
 commands_lista=[
     'Alfobot despierta',
@@ -40,8 +45,8 @@ class Partymode(commands.Cog):
                 return m.content == 'si'
               try:
                 msg = await self.client.wait_for('message', check=check)
-                r=random.randint(0,len(df)-1)
-                await message.channel.send(str(df.iloc[r][0]))
+                # r=random.randint(0,len(df)-1)
+                # await message.channel.send(str(df.iloc[r][0]))
               except:
                 await message.channel.send('Chicos, No os escucho! ¿Queréis o no?')
             # elif 'elmo' in tokens_limpios:
@@ -75,24 +80,43 @@ class Partymode(commands.Cog):
               await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando?')
               a = 1
             if a == 0:
-              frase_pool_pool = modelolemat.creacionpool(tokens_limpios, 80)
-              print(frase_pool_pool)
               try:
-                respuesta = modelolemat.seleccionrespuesta(frase_pool_pool)
+                pool = modelolemat.creacionpool(tokens_limpios, 50)
+                print(pool)
+                respuesta = modelolemat.seleccionrespuesta(pool)
                 print(respuesta)
                 await message.channel.send(respuesta)
                 def checkRisa(m):
                   return bool(re.search(r'jaj',m.content))
                 risa = False
-
                 try:
                   risa = await self.client.wait_for('message', timeout = 5.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
                 except:
                   pass
-
                 if risa != False:
                   modelopuntuacion.guardarjaja(respuesta)
                   await message.channel.send(str("Soy un puto genio"))
+                  
+                  # Envia gif con giphy
+                  embed = discord.Embed(colour=discord.Colour.blue())
+                  session = aiohttp.ClientSession()
+
+                  # Gif aleatorio:
+                  response = await session.get('https://api.giphy.com/v1/gifs/random?api_key='+apiGiphy)
+                  data = json.loads(await response.text())
+                  embed.set_image(url=data['data']['images']['original']['url'])
+
+                  # Gif sobre temática 'search':
+
+                  # search.replace(' ', '+')
+                  # response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key=API_KEY_GOES_HERE&limit=10')
+                  # data = json.loads(await response.text())
+                  # gif_choice = random.randint(0, 9)
+                  # embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
+
+                  await session.close()
+                  await message.channel.send(embed=embed)
+
                 # except:
                 #   await message.channel.send('Si no me creen es su problema')
                 a = 1

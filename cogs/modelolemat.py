@@ -11,6 +11,38 @@ import numpy as np
 import math
 import requests
 from bs4 import BeautifulSoup
+from collections import Counter
+
+
+# Variables declaradas globales por agilizar funciones. ¿Alguna sería mejor que siguiese estando 
+# dentro de su respectiva función?
+
+# Variables para lemmatizer:
+
+global lemma_ray
+global superinfo
+global sustantivos
+global verbos
+
+#Abre el lemma en vinagre; es un dataset.
+with open(f'cogs/datos/rayo_lemmatizador' , 'rb') as f:
+	lemma_ray = pickle.load(f)
+
+#también sacamos de conserva el dataset de las palabras
+#contiene 14 atributos de cada palabra + el target (POS)
+with open(f'cogs/datos/X_train' , 'rb') as f:
+	superinfo = pickle.load(f)
+
+sustantivos = superinfo[superinfo['POS']=='NOUN'].Palabra.value_counts().index
+verbos = superinfo[superinfo['POS']=='VERB'].Palabra.value_counts().index
+
+# Variables para creacionpool:
+global df_frasest
+global tokens_alfonso
+
+df_frasest=pd.io.json.read_json(f'cogs/datos/frasest.json')
+tokens_alfonso=df_frasest.columns.drop(['frase','tokenizado'])
+
 #Ingreso de datos
 
 def lemmascrapper(token):
@@ -30,19 +62,6 @@ def lemmascrapper(token):
 
 
 def lemmatizer(to_tokenize):
-	#Abre el lemma en vinagre; es un dataset.
-	with open(f'cogs/datos/rayo_lemmatizador' , 'rb') as f:
-		lemma_ray = pickle.load(f)
-
-	#también sacamos de conserva el dataset de las palabras
-	#contiene 14 atributos de cada palabra + el target (POS)
-	with open(f'cogs/datos/X_train' , 'rb') as f:
-		superinfo = pickle.load(f)
-
-	sustantivos = superinfo[superinfo['POS']=='NOUN'].Palabra.value_counts().index
-	verbos = superinfo[superinfo['POS']=='VERB'].Palabra.value_counts().index
-
-
 
     #Creamos variable que será una lista de tokens de la frase inicial
     #la lista irradiated son las palabras de la frase lemmatizadas ya.
@@ -96,27 +115,32 @@ def guardadoinputs(message,tokens_limpios):
 		encoding='utf-8-sig')
 	with open(f"cogs/datos/inputs.csv","a") as fh:
 		fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
+
 def seleccionrespuesta(pool):
-	return random.sample(pool,1)[0]
+	# Random con pesos. Suavizador a modificar para balancear pesos si fuese necesario
+	suavizador = 0
+	ind = random.choices(population = pool.index.values, weights = [x+suavizador for x in pool['num'].values],k=1)[0]
+	print(ind)
+	print(df_frasest.at[ind,'frase'])
+	return df_frasest.at[ind,'frase']
+
 
 def creacionpool(tokens_limpios,percentil):
-	df=pd.io.json.read_json(f'cogs/datos/frasest.json')
 	#TO - DO: LEMMATIZAR TODAS LAS FRASES DE ALFOBOT
-	tokens_alfonso=df.columns.drop(['frase','tokenizado'])
-	d1 = dict()
+	pool = pd.DataFrame()
 	for token_usuario in tokens_limpios:
 		if token_usuario in tokens_alfonso:
-			frindices = df[df[token_usuario]>=1].index.values
+			frindices = df_frasest[df_frasest[token_usuario]>=1].index.values
 			for i in frindices:
-				if i in d1.keys():
-					d1.update({i:d1[i]+1})
+				if i in pool.index.values:
+					pool.at[i,'num'] = pool.at[i,'num']+1
 				else:
-					d1.update({i:1})			
-	d1 = np.array(list(d1.items()))
-	corte = np.percentile(d1[:,1], percentil)
-	pool=[]
-	for c in d1:
-		if c[1] >=corte:
-			pool.append(df.loc[c[0],'frase'])
+					pool.at[i,'num']=1	
+	# Aplicamos percentil
+	pool['num']=pd.to_numeric(pool['num'])		
+	corte = np.percentile(pool['num'].values, percentil)
+	# df con índice de la frase y num de tokens coincidentes
+	pool = pool[pool['num']>=corte]
+
 	return pool
 
