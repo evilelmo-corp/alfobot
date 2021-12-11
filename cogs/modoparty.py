@@ -92,9 +92,9 @@ class Partymode(commands.Cog):
 
                 if risa != False:
                   modelopuntuacion.guardarjaja(respuesta)
-                    await message.channel.send(str("Soy un puto genio"))
-                except:
-                    await message.channel.send('Si no me creen es su problema')
+                  await message.channel.send(str("Soy un puto genio"))
+                # except:
+                #   await message.channel.send('Si no me creen es su problema')
                 a = 1
               except:
                 pass
