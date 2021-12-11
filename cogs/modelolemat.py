@@ -86,6 +86,8 @@ def lemmatizer(to_tokenize):
 	print(sin_lemma,"sinlema",len(sin_lemma))
 	print(irradiated,"irradiated",len(irradiated))
 	print(topics,"topics",len(topics))
+	#Si la cantidad de tokens no lematizados es superior a la cantidad de tokens leídos busca en el diccionario.
+	#Para evitar que busque innecesariamente, se lo puede modificar sin problema
 	if len(sin_lemma)>len(irradiated):
 		for tok in sin_lemma:
 			try:
@@ -101,7 +103,7 @@ def lemmatizer(to_tokenize):
 		with open(f"cogs/datos/a_lemmatizar.txt","a") as fh:
 			for elemento in sin_lemma_def:
 				fh.write(";"+elemento)
-
+	topics.extend(sin_lemma_def)
 	return irradiated, topics
 
 
