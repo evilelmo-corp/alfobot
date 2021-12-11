@@ -95,7 +95,7 @@ async def duerme(ctx):
     else: # modoprofe == False and modoparty == False:
         # await ctx.send('Si me necesitan, me pueden despertar')
         await ctx.send('ZzZzZzZzZzZ...')
-# Refrescar frases party:
+Refrescar frases party:
 @client.command()
 async def tokeniza(ctx):
     await tokenizar()
