@@ -69,6 +69,12 @@ def lemmatizer(to_tokenize):
     #la lista sin_lemma son los tokens que no están registrados ni tienen lemma
 
 	sentence = word_tokenize(to_tokenize.content)
+
+	# "jajaja" estaba entrando. Forma temporal de quitarnoslo
+	for i in sentence:
+		if 'jaja' in i:
+			sentence.remove(i)
+
 	irradiated, topics, sin_lemma = [],[],[]
 
 	for token in sentence:
@@ -119,9 +125,18 @@ def guardadoinputs(message,tokens_limpios):
 		fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
 
 def seleccionrespuesta(pool):
+	# Suma de las 3 variables. Ponderadas con pond?
+	pond=1
+
+	pool['num']=pd.to_numeric(pool['num'])
+	pool['num_reacciones']=pd.to_numeric(pool['num_reacciones'])
+	pool['num_risas']=pd.to_numeric(pool['num_risas'])
+
+	pool['suma']=pool['num']+pond*pool['num_reacciones']+pond*pool['num_risas']
+
 	# Random con pesos. Suavizador a modificar para balancear pesos si fuese necesario
 	suavizador = 0
-	ind = random.choices(population = pool.index.values, weights = [x+suavizador for x in pool['num'].values],k=1)[0]
+	ind = random.choices(population = pool['frases'].values, weights = [x+suavizador for x in pool['suma'].values],k=1)[0]
 	print(ind)
 	print(df_frasest.at[ind,'frase'])
 	return df_frasest.at[ind,'frase']
@@ -143,6 +158,12 @@ def creacionpool(tokens_limpios,percentil):
 	corte = np.percentile(pool['num'].values, percentil)
 	# df con índice de la frase y num de tokens coincidentes
 	pool = pool[pool['num']>=corte]
+	pool['frases']=pool.index
 
+	# Añadimos datos de puntuaciones:
+	df_puntuacion=pd.io.json.read_json(f'cogs/datos/puntuacion.json')
+	pool = df_puntuacion.merge(pool,how='right',on='frases')
+	print(pool)
+	# Columnas de pool: frases, num_reacciones, num_risas, num
 	return pool
 
