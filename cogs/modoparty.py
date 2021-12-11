@@ -76,7 +76,7 @@ class Partymode(commands.Cog):
               a = 1
             if a == 0:
               frase_pool_pool = modelolemat.creacionpool(tokens_limpios, 80)
-              print(frase_pool_pool)
+              print(len(frase_pool_pool))
               try:
                 respuesta = modelolemat.seleccionrespuesta(frase_pool_pool)
                 print(respuesta)
