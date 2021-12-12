@@ -14,7 +14,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from os import remove
 
-
+nltk.download('punkt')#necesarioparaREPLIT
 # Variables declaradas globales por agilizar funciones. ¿Alguna sería mejor que siguiese estando 
 # dentro de su respectiva función?
 
