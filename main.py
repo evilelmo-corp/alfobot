@@ -8,6 +8,7 @@ import pandas as pd
 import nltk
 import re
 import math
+from cogs.modelolemat import actualizarpickles
 
 global modoprofe
 global modoparty
@@ -100,6 +101,11 @@ async def duerme(ctx):
     else: # modoprofe == False and modoparty == False:
         # await ctx.send('Si me necesitan, me pueden despertar')
         await ctx.send('ZzZzZzZzZzZ...')
+    try:
+        actualizarpickles()
+    except FileNotFoundError:
+        print("No hay nada pickelizable")
+
 
 # Refrescar frases party:
 @client.command()

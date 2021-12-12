@@ -12,6 +12,7 @@ import math
 import requests
 from bs4 import BeautifulSoup
 from collections import Counter
+from os import remove
 
 
 # Variables declaradas globales por agilizar funciones. ¿Alguna sería mejor que siguiese estando 
@@ -103,12 +104,12 @@ def lemmatizer(to_tokenize):
 				irradiated.append(lema)
 				if tipo == "s" or tipo == "v":
 					topics.append(lema)
-				a_picklelizar.append([tok,lema])
+				a_picklelizar.append((tok,lema))
 			except:
 				sin_lemma_def.append(tok)
-		with open(f"cogs/datos/a_picklelizar.txt","a") as fh:
-			for elemento in a_picklelizar:
-				fh.write(str(elemento)+",")
+		with open(f"cogs/datos/a_pickelizar.txt","a") as fh:
+			for ele,mento in a_picklelizar:
+				fh.write(str(ele)+","+str(mento)+";")
 	print(sin_lemma_def,"sin_lemma_def",len(sin_lemma_def))
 	if len(sin_lemma_def)>0:
 		with open(f"cogs/datos/a_lemmatizar.txt","a") as fh:
@@ -173,3 +174,16 @@ def creacionpool(tokens_limpios,percentil):
 	# Columnas de pool: frases, num_reacciones, num_risas, num
 	return pool
 
+def actualizarpickles():
+	pick=pd.read_pickle(f'cogs/datos/rayo_lemmatizador')
+	with open(f'cogs/datos/a_pickelizar.txt') as apc:
+		apk=apc.read()
+	l_apk=apk.split(";")
+	for tup in l_apk[:-1]:
+		l_tup=tup.split(",")
+		if l_tup[0] not in pick["Form"].values:
+			pick=pick.append({'Form':l_tup[0],"lemma":l_tup[1]},ignore_index=True)
+		else:
+			print(l_tup[0],"está en la base")
+	pick.to_pickle(f'cogs/datos/rayo_lemmatizador')
+	remove(f'cogs/datos/a_pickelizar.txt')
