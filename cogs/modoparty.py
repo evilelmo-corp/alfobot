@@ -10,6 +10,7 @@ import re
 import math
 import json
 import aiohttp
+import urllib.parse, urllib.request, re
 
 from cogs import modelolemat
 from cogs import modelopuntuacion
@@ -102,17 +103,18 @@ class Partymode(commands.Cog):
                   session = aiohttp.ClientSession()
 
                   # Gif aleatorio:
-                  response = await session.get('https://api.giphy.com/v1/gifs/random?api_key='+apiGiphy)
-                  data = json.loads(await response.text())
-                  embed.set_image(url=data['data']['images']['original']['url'])
+                  # response = await session.get('https://api.giphy.com/v1/gifs/random?api_key='+apiGiphy)
+                  # data = json.loads(await response.text())
+                  # embed.set_image(url=data['data']['images']['original']['url'])
 
                   # Gif sobre temática 'search':
 
-                  # search.replace(' ', '+')
-                  # response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key=API_KEY_GOES_HERE&limit=10')
-                  # data = json.loads(await response.text())
-                  # gif_choice = random.randint(0, 9)
-                  # embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
+                  search=random.choice(tokens_limpios)
+                  #search.replace(' ', '+')
+                  response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key='+apiGiphy+'&limit=10')
+                  data = json.loads(await response.text())
+                  gif_choice = random.randint(0, 9)
+                  embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
 
                   await session.close()
                   await message.channel.send(embed=embed)
@@ -122,7 +124,7 @@ class Partymode(commands.Cog):
                 a = 1
               except:
                 pass
-            
+     
     #Guardado de reacciones a las propias reacciones
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -131,5 +133,6 @@ class Partymode(commands.Cog):
         user = await self.client.fetch_user(payload.user_id)
         emoji = payload.emoji
         modelopuntuacion.guardarreacciones(self.client.user, message,emoji)
+
 def setup(client):
     client.add_cog(Partymode(client))
