@@ -122,15 +122,14 @@ def lemmatizer(to_tokenize):
 
 
 def guardadoinputs(message,tokens_limpios):
-	df_usuarios=pd.read_csv(f'cogs/datos/pedidos.csv',delimiter=";")
-	sep=";.;..;.;;"
-	df_usuarios.loc[len(df_usuarios)]=[message.author,tokens_limpios,datetime.now()]
-	df_usuarios.to_csv(f"cogs/datos/pedidos.csv",
-		sep=";",
-		index=False,
-		encoding='utf-8-sig')
-	with open(f"cogs/datos/inputs.csv","a") as fh:
-		fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
+	with open(f"cogs/datos/inputs_espia.csv","a") as fh:
+		fh.write("\n"+str(datetime.now())+
+			sep+str(message.channel)+
+			sep+str(message.author)+
+			sep+"'"+str(message.clean_content)+"'"+
+			sep+str(tokens_limpios)
+			sep+str(message.mentions)
+			)
 
 def creacionpool(tokens_limpios,percentil):
 	#TO - DO: LEMMATIZAR TODAS LAS FRASES DE ALFOBOT
