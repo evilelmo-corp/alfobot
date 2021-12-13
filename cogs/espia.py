@@ -16,8 +16,8 @@ class Espia(commands.Cog):
 			message.flags,
 			message.mentions
 			)
-		irradiated,tokens_limpios=modelolemat.lemmatizer(message)
-		modelolemat.guardadoinputs(message,irradiated)
+		irradiated, topics, tokens_limpios=modelolemat.lemmatizer(message)
+		modelolemat.guardadoinputs(message, tokens_limpios)
 
 
 def setup(client):

@@ -91,7 +91,7 @@ class Partymode(commands.Cog):
                   return bool(re.search(r'jaj',m.content))
                 risa = False
                 try:
-                  risa = await self.client.wait_for('message', timeout = 5.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
+                  risa = await self.client.wait_for('message', timeout = 30.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
                 except:
                   pass
                 if risa != False:
