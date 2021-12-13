@@ -13,9 +13,9 @@ import requests
 from bs4 import BeautifulSoup
 from collections import Counter
 from os import remove
+import nltk
 
-
-
+nltk.download('punkt')#necesarioparaREPLIT
 # Variables declaradas globales por agilizar funciones. ¿Alguna sería mejor que siguiese estando 
 # dentro de su respectiva función?
 
@@ -96,7 +96,7 @@ def lemmatizer(to_tokenize):
 	print(topics,"topics",len(topics))
 	#Si la cantidad de tokens no lematizados es superior a la cantidad de tokens leídos busca en el diccionario.
 	#Para evitar que busque innecesariamente, se lo puede modificar sin problema
-	if len(sin_lemma)>len(irradiated):
+	if True==True: # len(sin_lemma)>len(irradiated): #Pruebo a quitar el if a ver si tarda mucho
 		a_picklelizar=[]
 		for tok in sin_lemma:
 			try:
@@ -118,38 +118,19 @@ def lemmatizer(to_tokenize):
 				fh.write(";"+str(elemento))
 	#agregar los sin lemma definitivos a topics permite captar los nombres propios.
 	topics.extend(sin_lemma_def)
-	irradiated.extend(sin_lemma_def)
 	return irradiated, topics
 
 
 def guardadoinputs(message,tokens_limpios):
-	sep=";--;"
-	with open(f"cogs/datos/inputs_espia.csv","a",encoding="utf-8") as fh:
-		fh.write("\n"+str(datetime.now())+
-			sep+str(message.channel)+
-			sep+str(message.author)+
-			sep+"'"+str(message.clean_content)+"'"+
-			sep+str(tokens_limpios)+
-			sep+str(message.mentions)
-			)
-
-def seleccionrespuesta(pool):
-	# Suma de las 3 variables. Ponderadas con pond?
-	pond=1
-
-	pool['num']=pd.to_numeric(pool['num'])
-	pool['num_reacciones']=pd.to_numeric(pool['num_reacciones'])
-	pool['num_risas']=pd.to_numeric(pool['num_risas'])
-
-	pool['suma']=pool['num']+pond*pool['num_reacciones']+pond*pool['num_risas']
-
-	# Random con pesos. Suavizador a modificar para balancear pesos si fuese necesario
-	suavizador = 0
-	ind = random.choices(population = pool['frases'].values, weights = [x+suavizador for x in pool['suma'].values],k=1)[0]
-	print(ind)
-	print(df_frasest.at[ind,'frase'])
-	return df_frasest.at[ind,'frase']
-
+	df_usuarios=pd.read_csv(f'cogs/datos/pedidos.csv',delimiter=";")
+	sep=";.;..;.;;"
+	df_usuarios.loc[len(df_usuarios)]=[message.author,tokens_limpios,datetime.now()]
+	df_usuarios.to_csv(f"cogs/datos/pedidos.csv",
+		sep=";",
+		index=False,
+		encoding='utf-8-sig')
+	with open(f"cogs/datos/inputs.csv","a") as fh:
+		fh.write("\n"+str(datetime.now())+sep+str(message.author)+sep+"'"+str(message.content)+"'"+sep+str(tokens_limpios))
 
 def creacionpool(tokens_limpios,percentil):
 	#TO - DO: LEMMATIZAR TODAS LAS FRASES DE ALFOBOT
@@ -173,10 +154,50 @@ def creacionpool(tokens_limpios,percentil):
 	df_puntuacion=pd.io.json.read_json(f'cogs/datos/puntuacion.json')
 	pool = df_puntuacion.merge(pool,how='right',on='frases')
 	print(pool)
-	# Columnas de pool: frases, num_reacciones, num_risas, num
+	# Columnas de pool: frases, num_reacciones, num_risas, num, num_usada
 	return pool
 
+def seleccionrespuesta(pool):
+	# Suma de las 3 variables. Ponderadas con pond?
+	pond=1
+
+	pool['num']=pd.to_numeric(pool['num'])
+	pool['num_reacciones']=pd.to_numeric(pool['num_reacciones'])
+	pool['num_risas']=pd.to_numeric(pool['num_risas'])
+	#pool['num_usada']=pd.to_numeric(pool['num_usada'])
+
+	pool['suma']=pool['num']+pond*pool['num_reacciones']+pond*pool['num_risas']#-pond*pool['num_usada']
+
+	# Random con pesos. Suavizador a modificar para balancear pesos si fuese necesario
+	suavizador = 0
+	ind = random.choices(population = pool['frases'].values, weights = [x+suavizador for x in pool['suma'].values], k=1)[0]
+	print(ind)
+	print(df_frasest.at[ind,'frase'])
+
+	# Apunta en puntuacion.json que la frase ha sido usada
+	
+	df_puntuacion=pd.io.json.read_json(f'cogs/datos/puntuacion.json')
+	if ind in df_puntuacion['frases'].values:
+		index_punt = df_puntuacion[df_puntuacion['frases']==ind].index.values[0]
+		df_puntuacion.at[index_punt,'num_usada']+=1
+	else:
+		# df_puntuacion.at[len(df_puntuacion),'frases']=ind
+		# df_puntuacion.at[len(df_puntuacion),'num_usada']=1
+		u_linea=len(df_puntuacion)
+		linea_ceros=[0 for x in range(len(df_puntuacion.columns))]
+		linea_ceros[0]=ind
+		df_puntuacion.loc[u_linea]=linea_ceros
+		df_puntuacion['num_usada'].iat[u_linea]=1
+	df_puntuacion.fillna(0, inplace=True)
+	df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
+
+
+	return df_frasest.at[ind,'frase']
+
 def actualizarpickles():
+	'''
+	Toma las palabras que encontró y puso en a_pickelizar.txt y las introduce en la base de datos en pickle
+	'''
 	pick=pd.read_pickle(f'cogs/datos/rayo_lemmatizador')
 	with open(f'cogs/datos/a_pickelizar.txt') as apc:
 		apk=apc.read()
