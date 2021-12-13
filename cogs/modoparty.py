@@ -36,7 +36,7 @@ class Partymode(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
-            irradiated,tokens_limpios=modelolemat.lemmatizer(message)
+            irradiated, topics, tokens_limpios=modelolemat.lemmatizer(message)
             #modelolemat.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
@@ -96,7 +96,7 @@ class Partymode(commands.Cog):
                   pass
                 if risa != False:
                   modelopuntuacion.guardarjaja(respuesta)
-                  await message.channel.send(str("Soy un puto genio"))
+                  await message.channel.send(modelolemat.risaReaccion())
                   
                   # Envia gif con giphy
                   embed = discord.Embed(colour=discord.Colour.blue())

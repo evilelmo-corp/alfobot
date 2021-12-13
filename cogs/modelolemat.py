@@ -14,8 +14,16 @@ from bs4 import BeautifulSoup
 from collections import Counter
 from os import remove
 import nltk
+import random
 
-nltk.download('punkt')#necesarioparaREPLIT
+nltk.download('punkt')
+nltk.download('spanish_grammars')
+nltk.download('vader_lexicon')
+nltk.download('stopwords')
+palabras_funcionales=nltk.corpus.stopwords.words("spanish")
+palabras_funcionales.extend([".", ",", ":", ";", "!", "?","'" ])
+
+#necesarioparaREPLIT
 # Variables declaradas globales por agilizar funciones. ¿Alguna sería mejor que siguiese estando 
 # dentro de su respectiva función?
 
@@ -25,6 +33,7 @@ global lemma_ray
 global superinfo
 global sustantivos
 global verbos
+global adjetivos
 
 #Abre el lemma en vinagre; es un dataset.
 with open(f'cogs/datos/rayo_lemmatizador' , 'rb') as f:
@@ -37,6 +46,7 @@ with open(f'cogs/datos/X_train' , 'rb') as f:
 
 sustantivos = superinfo[superinfo['POS']=='NOUN'].Palabra.value_counts().index
 verbos = superinfo[superinfo['POS']=='VERB'].Palabra.value_counts().index
+adjetivos = superinfo[superinfo['POS']=='ADJ'].Palabra.value_counts().index
 
 # Variables para creacionpool:
 global df_frasest
@@ -70,33 +80,37 @@ def lemmatizer(to_tokenize):
     #la lista topics son los lemmas de los SUSTANTIVOS y VERBOS de la frase
     #la lista sin_lemma son los tokens que no están registrados ni tienen lemma
 
-	sentence = word_tokenize(to_tokenize.content)
+	tokens = word_tokenize(to_tokenize.content,"spanish")
 
-	# "jajaja" estaba entrando. Forma temporal de quitarnoslo
-	for i in sentence:
-		if 'jaja' in i:
-			sentence.remove(i)
+	tokens_limpios=[]
+	for token in tokens:
+		token=token.lower() 
+		if token not in palabras_funcionales:
+			if 'jaja' not in token: 
+				tokens_limpios.append(token)
 
-	irradiated, topics, sin_lemma = [],[],[]
+	irradiated, topics, sin_lemma, toklemma = [],[],[],[]
 
-	for token in sentence:
+	for token in tokens_limpios:
 		lemma = lemma_ray[lemma_ray['Form']==token].lemma.values
 		try:
 			irradiated.append(lemma[0])
+			toklemma.append(lemma[0])
 		except:
 			sin_lemma.append(token)
-		if token in sustantivos:
+		if (token in sustantivos) or (token in verbos) or (token in adjetivos):
 			topics.append(lemma[0].lower())
-		elif token in verbos:
-			topics.append(lemma[0].lower())
+
 	#añadiendo lectura del diccionario a los tokens no lematizados
 	sin_lemma_def=[]
 	print(sin_lemma,"sinlema",len(sin_lemma))
 	print(irradiated,"irradiated",len(irradiated))
 	print(topics,"topics",len(topics))
-	#Si la cantidad de tokens no lematizados es superior a la cantidad de tokens leídos busca en el diccionario.
-	#Para evitar que busque innecesariamente, se lo puede modificar sin problema
-	if True==True: # len(sin_lemma)>len(irradiated): #Pruebo a quitar el if a ver si tarda mucho
+	
+	# Busca tokens que no logra lematizar:
+	# Las que encuentra las guarda en a_pickelizar.txt junto a su lemma
+	# Las que no encuentra las guarda en a_lemmatizar.txt
+	if True==True:
 		a_picklelizar=[]
 		for tok in sin_lemma:
 			try:
@@ -105,9 +119,11 @@ def lemmatizer(to_tokenize):
 				irradiated.append(lema)
 				if tipo == "s" or tipo == "v":
 					topics.append(lema)
+				toklemma.append(lema.lower())
 				a_picklelizar.append((tok.lower(),lema.lower()))
 			except:
 				sin_lemma_def.append(tok.lower())
+				toklemma.append(tok)
 		with open(f"cogs/datos/a_pickelizar.txt","a") as fh:
 			for ele,mento in a_picklelizar:
 				fh.write(str(ele)+","+str(mento)+";")
@@ -116,9 +132,10 @@ def lemmatizer(to_tokenize):
 		with open(f"cogs/datos/a_lemmatizar.txt","a") as fh:
 			for elemento in sin_lemma_def:
 				fh.write(";"+str(elemento))
-	#agregar los sin lemma definitivos a topics permite captar los nombres propios.
+	# Agrega las palabras no encontradas a topics
 	topics.extend(sin_lemma_def)
-	return irradiated, topics
+
+	return irradiated, topics, toklemma
 
 
 def guardadoinputs(message,tokens_limpios):
@@ -204,3 +221,7 @@ def actualizarpickles():
 			print(l_tup[0],"está en la base")
 	pick.to_pickle(f'cogs/datos/rayo_lemmatizador')
 	remove(f'cogs/datos/a_pickelizar.txt')
+
+def risaReaccion():
+	reacciones=["Vaya CRACK soy, no?","Es o no es","De qué te ríes","Lo leí en mi twitter jaja", "Pues Adrianbot es más gracioso aún"]
+	return random.choice(reacciones)
