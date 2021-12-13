@@ -8,7 +8,7 @@ import pandas as pd
 import nltk
 import re
 import math
-from cogs.modelolemat import actualizarpickles
+from cogs import modelolemat
 
 global modoprofe
 global modoparty
@@ -21,6 +21,8 @@ client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando 
 @client.event
 async def on_ready():
     await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "simplificar DATOS dejé atrás mi forma corpórea"))
+    #Espía
+    client.load_extension(f'cogs.espia')
     print('My bot is ready')
 
 
@@ -112,6 +114,8 @@ async def duerme(ctx):
 async def tokeniza(ctx, arg):
     print(arg)
     await ctx.send(tkf.tokenizador_frase_unica(arg))
+
+
 
 
 keep_alive.keep_alive()
