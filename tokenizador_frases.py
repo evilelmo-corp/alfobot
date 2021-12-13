@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 import pickle
 from nltk.tokenize import word_tokenize
 import time
+import re
 
 # nltk.download('punkt')
 # nltk.download('spanish_grammars')
@@ -53,15 +54,17 @@ def lemmatizer(to_tokenize):
   irradiated, topics, sin_lemma = [],[],[]
 
   for token in sentence:
+    token=re.sub(r'¿',r'',token)
+    token=re.sub(r'-',r'',token)
     lemma = lemma_ray[lemma_ray['Form']==token].lemma.values
     try:
       irradiated.append(lemma[0])
     except:
       sin_lemma.append(token)
     if token in sustantivos:
-      topics.append(lemma[0])
+      topics.append(lemma[0].lower())
     elif token in verbos:
-      topics.append(lemma[0])
+      topics.append(lemma[0].lower())
   #añadiendo lectura del diccionario a los tokens no lematizados
   sin_lemma_def=[]
   print(sin_lemma,"sinlema",len(sin_lemma))
@@ -76,7 +79,7 @@ def lemmatizer(to_tokenize):
       if tipo == "s" or tipo == "v":
         topics.append(lema)
     except:
-      sin_lemma_def.append(tok)
+      sin_lemma_def.append(tok.lower().lower())
   print(sin_lemma_def,"sin_lemma_def",len(sin_lemma_def))
   if len(sin_lemma_def)>0:
     try:

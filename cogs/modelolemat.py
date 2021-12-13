@@ -86,9 +86,9 @@ def lemmatizer(to_tokenize):
 		except:
 			sin_lemma.append(token)
 		if token in sustantivos:
-			topics.append(lemma[0])
+			topics.append(lemma[0].lower())
 		elif token in verbos:
-			topics.append(lemma[0])
+			topics.append(lemma[0].lower())
 	#añadiendo lectura del diccionario a los tokens no lematizados
 	sin_lemma_def=[]
 	print(sin_lemma,"sinlema",len(sin_lemma))
@@ -105,9 +105,9 @@ def lemmatizer(to_tokenize):
 				irradiated.append(lema)
 				if tipo == "s" or tipo == "v":
 					topics.append(lema)
-				a_picklelizar.append((tok,lema))
+				a_picklelizar.append((tok.lower(),lema.lower()))
 			except:
-				sin_lemma_def.append(tok)
+				sin_lemma_def.append(tok.lower())
 		with open(f"cogs/datos/a_pickelizar.txt","a") as fh:
 			for ele,mento in a_picklelizar:
 				fh.write(str(ele)+","+str(mento)+";")
