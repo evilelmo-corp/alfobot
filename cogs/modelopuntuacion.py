@@ -13,7 +13,7 @@ def apertura():
 
 def recopilacion(df_frases,df_recepcion,df_puntuacion):
 	for f in range(len(df_recepcion)):
-		num_frase=df_recepcion["Frases"].iloc[f]
+		num_frase=df_recepcion["frases"].iloc[f]
 		numero_reacciones= df_recepcion.iloc[f].sum()
 		if num_frase in df_puntuacion['frases'].values:
 			index_punt = df_puntuacion[df_puntuacion['frases']==num_frase].index.values[0]
@@ -26,14 +26,16 @@ def recopilacion(df_frases,df_recepcion,df_puntuacion):
 			df_puntuacion['num_reacciones'].iat[u_linea]=numero_reacciones
 	df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
 
-def guardarreacciones(usuario, mensaje,emoji):
+def guardarreacciones(usuario, mensaje, emoji):
 	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
 	df_recepcion=pd.io.json.read_json(f"cogs/datos/recep.json")
+	df_puntuacion=pd.io.json.read_json(f"cogs/datos/puntuacion.json")
+
 	if usuario == mensaje.author:
 		num_frase=df_frases[df_frases["frase"]==mensaje.content].index.values[0]
-		if num_frase in df_recepcion['Frases'].values:
-			print(df_recepcion[df_recepcion["Frases"]==num_frase].index.values)
-			linea=df_recepcion[df_recepcion["Frases"]==num_frase].index.values
+		if num_frase in df_recepcion['frases'].values:
+			print(df_recepcion[df_recepcion["frases"]==num_frase].index.values)
+			linea=df_recepcion[df_recepcion["frases"]==num_frase].index.values
 			conjunto=df_recepcion.columns
 			if emoji.name in conjunto:
 				df_recepcion[emoji.name].iat[linea[0]]+=1
@@ -56,8 +58,14 @@ def guardarreacciones(usuario, mensaje,emoji):
 				#conjunto.add(emoji)
 				df_recepcion[emoji.name]=0
 				df_recepcion[emoji.name].iat[u_linea]=1
+		
+		index_punt = df_puntuacion[df_puntuacion['frases']==ind].index.values[0]
+		df_puntuacion.at[index_punt,'num_reacciones']+=1
+
 		df_recepcion.to_csv(f"cogs/datos/recep.csv",index=False, sep=";")
 		df_recepcion.to_json(f"cogs/datos/recep.json")
+		df_puntuacion.to_json(f"cogs/datos/puntuacion.json")
+		
 def guardarjaja(frase):
 	df_frases=pd.io.json.read_json(f'cogs/datos/frasest.json')
 	df_puntuacion=pd.io.json.read_json(f"cogs/datos/puntuacion.json")

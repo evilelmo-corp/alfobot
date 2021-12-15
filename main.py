@@ -1,6 +1,6 @@
 import discord 
 from discord.ext import commands
-from tokenizador_frases import tokenizar
+import tokenizador_frases as tkf
 import keep_alive
 from datetime import datetime
 import random
@@ -8,6 +8,7 @@ import pandas as pd
 import nltk
 import re
 import math
+from cogs import modelolemat
 
 global modoprofe
 global modoparty
@@ -15,14 +16,18 @@ modoprofe=False
 modoparty=False
 
 #Set del BOT
-client = commands.Bot(command_prefix='Alfobot ', description="simplificando DATOS dejé atrás mi forma corpórea")
+client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
 
 @client.event
 async def on_ready():
-    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="simplificando DATOS dejé atrás mi forma corpórea"))
+    await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "simplificar DATOS dejé atrás mi forma corpórea"))
+    #Espía
+    client.load_extension(f'cogs.espia')
     print('My bot is ready')
 
-#Comandos de encendido y apagado de modos
+
+
+#Comando de encendido
 @client.command()
 async def despierta(ctx):
     global modoprofe
@@ -39,9 +44,9 @@ async def despierta(ctx):
         except:
           pass
     else:
-        #await ctx.send('Ya estoy aquí')
-        await ctx.send('Os estoy esperando en Zoom, HABLAD!')
-## Otra sintaxis para el modo profe, no sé si se puede ahorrar código de alguna forma
+        await ctx.send(str(client.user) + 'Os estoy esperando en Zoom, HABLAD!')
+
+# Modo profe
 @client.command()
 async def profe(ctx):
     global modoprofe
@@ -58,8 +63,9 @@ async def profe(ctx):
         except:
           pass
     else:
-        await ctx.send('Os estoy esperando en Zoom. HABLAD!'+str(client.user))
+        await ctx.send(str(client.user) + 'Os estoy esperando en Zoom. HABLAD!')
 
+# Modo party
 @client.command()
 async def party(ctx):
     global modoparty
@@ -77,6 +83,8 @@ async def party(ctx):
           pass
     else:
         await ctx.send('Soy omnipresente')
+
+# Comando dormir
 @client.command()
 async def duerme(ctx):
     global modoparty
@@ -95,10 +103,20 @@ async def duerme(ctx):
     else: # modoprofe == False and modoparty == False:
         # await ctx.send('Si me necesitan, me pueden despertar')
         await ctx.send('ZzZzZzZzZzZ...')
+    try:
+        actualizarpickles()
+    except FileNotFoundError:
+        print("No hay nada pickelizable")
+
+
 # Refrescar frases party:
 @client.command()
-async def tokeniza(ctx):
-    await tokenizar()
+async def tokeniza(ctx, arg):
+    print(arg)
+    await ctx.send(tkf.tokenizador_frase_unica(arg))
+
+
+
 
 keep_alive.keep_alive()
 

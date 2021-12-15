@@ -8,11 +8,14 @@ import pandas as pd
 import nltk
 import re
 import math
+import json
+import aiohttp
+import urllib.parse, urllib.request, re
+
 from cogs import modelolemat
 from cogs import modelopuntuacion
 
-#Ingreso de datos
-
+apiGiphy='jL3uqKUkUBo2yiw9zOOimLlx8VDI3IiT'
 
 commands_lista=[
     'Alfobot despierta',
@@ -23,6 +26,7 @@ commands_lista=[
 
 #df_recepcion=pd.read_csv("recep.csv",delimiter=";")
 #df_recepcion=pd.io.json.read_json(f'cogs/datos/recep.json')
+
 #Modo party
 class Partymode(commands.Cog):
     def __init__(self, client):
@@ -32,8 +36,8 @@ class Partymode(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
-            irradiated,tokens_limpios=modelolemat.lemmatizer(message)
-            modelolemat.guardadoinputs(message,tokens_limpios)
+            irradiated, topics, tokens_limpios=modelolemat.lemmatizer(message)
+            #modelolemat.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
               await message.channel.send('Hola, ¿Quieres un hack de vida?')
@@ -42,8 +46,8 @@ class Partymode(commands.Cog):
                 return m.content == 'si'
               try:
                 msg = await self.client.wait_for('message', check=check)
-                r=random.randint(0,len(df)-1)
-                await message.channel.send(str(df.iloc[r][0]))
+                # r=random.randint(0,len(df)-1)
+                # await message.channel.send(str(df.iloc[r][0]))
               except:
                 await message.channel.send('Chicos, No os escucho! ¿Queréis o no?')
             # elif 'elmo' in tokens_limpios:
@@ -71,30 +75,56 @@ class Partymode(commands.Cog):
               url = "https://markets.businessinsider.com/currencies/btc-eur"
               response = requests.get(url)
               soup = BeautifulSoup(response.text, "html.parser")
-              bitcoin_value='NaN'
-              bitcoin_value = soup.find("span", class_="price-section__current-value").text
+              bitcoin_value = 'NaN'
+              bitcoin_value = soup.find("span", class_ = "price-section__current-value").text
               #if not bitcoin_value: bitcoin_value = 'NaN'
-              await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando? ')
-              a=1
-            if a==0:
-              frase_pool_pool = modelolemat.creacionpool(tokens_limpios, 80)
-              print(frase_pool_pool)
+              await message.channel.send(f'El bitcoin está ahora a {bitcoin_value}€. A qué estás esperando?')
+              a = 1
+            if a == 0:
               try:
-                respuesta= modelolemat.seleccionrespuesta(frase_pool_pool)
+                pool = modelolemat.creacionpool(tokens_limpios, 50)
+                print(pool)
+                respuesta = modelolemat.seleccionrespuesta(pool)
                 print(respuesta)
                 await message.channel.send(respuesta)
-                def check(m):
-                    return bool(re.search(r'jaj',m.content))
+                def checkRisa(m):
+                  return bool(re.search(r'jaj',m.content))
+                risa = False
                 try:
-                    await self.client.wait_for('message', check=check)#msg = 
-                    modelopuntuacion.guardarjaja(respuesta)
-                    await message.channel.send(str("Soy un puto genio"))
+                  risa = await self.client.wait_for('message', timeout = 30.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
                 except:
-                    await message.channel.send('Si no me creen es su problema')
-                a=1
+                  pass
+                if risa != False:
+                  modelopuntuacion.guardarjaja(respuesta)
+                  await message.channel.send(modelolemat.risaReaccion())
+                  
+                  # Envia gif con giphy
+                  embed = discord.Embed(colour=discord.Colour.blue())
+                  session = aiohttp.ClientSession()
+
+                  # Gif aleatorio:
+                  # response = await session.get('https://api.giphy.com/v1/gifs/random?api_key='+apiGiphy)
+                  # data = json.loads(await response.text())
+                  # embed.set_image(url=data['data']['images']['original']['url'])
+
+                  # Gif sobre temática 'search':
+
+                  search=random.choice(tokens_limpios)
+                  #search.replace(' ', '+')
+                  response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key='+apiGiphy+'&limit=10')
+                  data = json.loads(await response.text())
+                  gif_choice = random.randint(0, 9)
+                  embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
+
+                  await session.close()
+                  await message.channel.send(embed=embed)
+
+                # except:
+                #   await message.channel.send('Si no me creen es su problema')
+                a = 1
               except:
                 pass
-            
+     
     #Guardado de reacciones a las propias reacciones
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -103,5 +133,6 @@ class Partymode(commands.Cog):
         user = await self.client.fetch_user(payload.user_id)
         emoji = payload.emoji
         modelopuntuacion.guardarreacciones(self.client.user, message,emoji)
+
 def setup(client):
     client.add_cog(Partymode(client))
