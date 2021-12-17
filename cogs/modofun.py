@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import discord 
 from discord.ext import commands
+import random
 
 
 

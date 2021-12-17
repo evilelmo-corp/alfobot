@@ -79,9 +79,9 @@ class Partymode(commands.Cog):
                 except:
                   pass
                 if risa != False:
-                  modofun.guardarjaja(respuesta)
-                  await message.channel.send(modelolemat.risaReaccion())
-                  
+                  modelopuntuacion.guardarjaja(respuesta)
+                  await message.channel.send(modofun.risaReaccion())
+                  print('risa detectada')
                   # Envía gif:
                   embed = discord.Embed(colour=discord.Colour.blue())
                   session = aiohttp.ClientSession()
