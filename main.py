@@ -27,13 +27,14 @@ async def on_ready():
 
 
 
+
 #Comando de encendido
 @client.command()
 async def despierta(ctx):
     global modoprofe
     global modoparty
     if modoprofe == False:
-        client.load_extension(f'cogs.modoprofe')
+        client.load_extension(f'cogs.cogBert')
         #client.add_cog(Profemode(client))
         modoprofe=True
         await ctx.send('Chicos, vamos serios. Hablad.')
@@ -91,6 +92,7 @@ async def duerme(ctx):
     global modoprofe
     if modoprofe == True:
         client.unload_extension(f'cogs.modoprofe')
+        client.unload_extension(f'cogs.cogBert')
         #client.remove_cog('Profemode')
         modoprofe=False
         await ctx.send('Chao chicos, nos vemos mañana')
