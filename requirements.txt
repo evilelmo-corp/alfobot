@@ -1,0 +1,8 @@
+discord 
+pandas
+numpy
+nltk
+torch
+tensorflow
+pytorch
+pickle
