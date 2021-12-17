@@ -8,7 +8,7 @@ import pandas as pd
 import nltk
 import re
 import math
-from cogs import modelolemat
+from cogs import mantenimiento
 
 global modoprofe
 global modoparty
@@ -104,7 +104,7 @@ async def duerme(ctx):
         # await ctx.send('Si me necesitan, me pueden despertar')
         await ctx.send('ZzZzZzZzZzZ...')
     try:
-        actualizarpickles()
+        mantenimiento.actualizarpickles()
     except FileNotFoundError:
         print("No hay nada pickelizable")
 
@@ -114,8 +114,6 @@ async def duerme(ctx):
 async def tokeniza(ctx, arg):
     print(arg)
     await ctx.send(tkf.tokenizador_frase_unica(arg))
-
-
 
 
 keep_alive.keep_alive()
