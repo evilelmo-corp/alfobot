@@ -123,7 +123,7 @@ def megatizer(message):
                     toklemmas.append(str(lemma).lower())
                     #print(token,'encontrado en la web')
                     # Guarda la palabra encontrada en a_pickelizar
-                    with open(f"a_pickelizar.txt","a") as fh:
+                    with open(f"/cogs/datos/a_pickelizar.txt","a") as fh:
                         try:
                             fh.write(str(lemma)+","+str(tipo)+";")
                         except UnicodeEncodeError:
@@ -162,7 +162,7 @@ def megatizer(message):
                     all_lemmas.append(str(lemma).lower())
                     #print(token,'encontrado en la web')
                     # Guarda la palabra encontrada en a_pickelizar
-                    with open(f"a_pickelizar.txt","a") as fh:
+                    with open(f"/cogs/datos/a_pickelizar.txt","a") as fh:
                         try:
                             fh.write(str(lemma)+","+str(tipo)+";")
                         except UnicodeEncodeError:

@@ -39,7 +39,6 @@ class Partymode(commands.Cog):
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
             tokens_limpios = modelolemat.megatizer(message)[1]
-            mantenimiento.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
               await message.channel.send('Hola, ¿Quieres un hack de vida?')
