@@ -14,6 +14,8 @@ import urllib.parse, urllib.request, re
 
 from cogs import modelolemat
 from cogs import modelopuntuacion
+from cogs import mantenimiento
+from cogs import modofun
 
 apiGiphy='jL3uqKUkUBo2yiw9zOOimLlx8VDI3IiT'
 
@@ -36,8 +38,8 @@ class Partymode(commands.Cog):
     @commands.Cog.listener()
     async def on_message(self, message):
         if (message.author != self.client.user) and (message.content not in commands_lista):
-            irradiated, topics, tokens_limpios=modelolemat.lemmatizer(message)
-            #modelolemat.guardadoinputs(message,tokens_limpios)
+            tokens_limpios = modelolemat.megatizer(message)[1]
+            mantenimiento.guardadoinputs(message,tokens_limpios)
             a=0
             if 'hola' in tokens_limpios:
               await message.channel.send('Hola, ¿Quieres un hack de vida?')
@@ -50,25 +52,7 @@ class Partymode(commands.Cog):
                 # await message.channel.send(str(df.iloc[r][0]))
               except:
                 await message.channel.send('Chicos, No os escucho! ¿Queréis o no?')
-            # elif 'elmo' in tokens_limpios:
-            #   await message.channel.send('Es el verdadero Dios')
-            #   a=1
-            # elif 'jc' in tokens_limpios:
-            #   await message.channel.send('JC? Quién es JC? si nunca puso cámara no existe.')
-            #   a=1
-            # elif 'hack' in tokens_limpios:
-            #   r=random.randint(0,len(df)-1)
-            #   await message.channel.send(str(df.iloc[r][0]))
-            # elif "kahoot" in tokens_limpios:
-            #   await message.channel.send('NOOOOOOO que me deprime')
-            #   a=1
-            # elif "daniela" in tokens_limpios:
-            #   await message.channel.send('Seguid el canal de Daniela, que es una crack. \n https://www.youtube.com/channel/UCtYNTthydqffzioKVhFrX5A')
-            #   a=1
-            # elif 'hackaton' in tokens_limpios:
-            #   r=random.randint(0,len(df)-1)
-            #   await message.channel.send(str("Van a hacer una regresión de la puta ostia, si han sido mis alumnos"))
-            # # elif "consumir" in tokens_limpios or "consume" in tokens_limpios or "consumes" in tokens_limpios or "consumo" in tokens_limpios:
+        
             elif "bitcoin" in tokens_limpios:
               import requests
               from bs4 import BeautifulSoup
@@ -82,9 +66,9 @@ class Partymode(commands.Cog):
               a = 1
             if a == 0:
               try:
-                pool = modelolemat.creacionpool(tokens_limpios, 50)
-                print(pool)
-                respuesta = modelolemat.seleccionrespuesta(pool)
+                pool = modofun.creacionpool(tokens_limpios, 1)
+                #print(pool)
+                respuesta = modofun.seleccionrespuesta(pool)
                 print(respuesta)
                 await message.channel.send(respuesta)
                 def checkRisa(m):
@@ -95,10 +79,10 @@ class Partymode(commands.Cog):
                 except:
                   pass
                 if risa != False:
-                  modelopuntuacion.guardarjaja(respuesta)
+                  modofun.guardarjaja(respuesta)
                   await message.channel.send(modelolemat.risaReaccion())
                   
-                  # Envia gif con giphy
+                  # Envía gif:
                   embed = discord.Embed(colour=discord.Colour.blue())
                   session = aiohttp.ClientSession()
 
@@ -115,8 +99,8 @@ class Partymode(commands.Cog):
                   data = json.loads(await response.text())
                   gif_choice = random.randint(0, 9)
                   embed.set_image(url=data['data'][gif_choice]['images']['original']['url'])
-
                   await session.close()
+              
                   await message.channel.send(embed=embed)
 
                 # except:

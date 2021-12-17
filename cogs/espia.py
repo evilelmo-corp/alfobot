@@ -2,6 +2,7 @@
 import discord 
 from discord.ext import commands
 from cogs import modelolemat
+from cogs import mantenimiento
 
 class Espia(commands.Cog):
 	def __init__(self, client):
@@ -16,9 +17,8 @@ class Espia(commands.Cog):
 			message.flags,
 			message.mentions
 			)
-		irradiated, topics, tokens_limpios=modelolemat.lemmatizer(message)
-		modelolemat.guardadoinputs(message, tokens_limpios)
-
+		tokens_limpios=modelolemat.megatizer(message)[1]
+		mantenimiento.guardadoinputs(message, tokens_limpios)
 
 def setup(client):
     client.add_cog(Espia(client))
