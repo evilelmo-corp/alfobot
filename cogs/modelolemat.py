@@ -140,7 +140,7 @@ def megatizer(message):
                     toklemmas.append(token)
                     # Guarda la palabra en nombres_propios
                     nombres_propios.at[len(nombres_propios),'nombre']=token
-                    with open(f"/cogs/datos/nombres_propios.txt","a") as fh:
+                    with open(f"cogs/datos/nombres_propios.txt","a") as fh:
                         try:
                             fh.write(str(token)+"\n")
                         except UnicodeEncodeError:
