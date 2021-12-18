@@ -5,4 +5,4 @@ nltk
 torch
 tensorflow
 pytorch
-pickle
+pickle5
