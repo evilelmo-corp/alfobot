@@ -34,12 +34,14 @@ def creacionpool(tokens_limpios,percentil):
 				else:
 					pool.at[i,'num']=1	
 	# Aplicamos percentil
-	pool['num']=pd.to_numeric(pool['num'])		
-	corte = np.percentile(pool['num'].values, percentil)
-	# df con índice de la frase y num de tokens coincidentes
-	pool = pool[pool['num']>=corte]
-	pool['frases']=pool.index
-
+	try:
+		pool['num']=pd.to_numeric(pool['num'])		
+		corte = np.percentile(pool['num'].values, percentil)
+		# df con índice de la frase y num de tokens coincidentes
+		pool = pool[pool['num']>=corte]
+		pool['frases']=pool.index
+	except:
+		print("error con pool")
 	# Añadimos datos de puntuaciones:
 	df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
 	pool = df_puntuacion.merge(pool,how='right',on='frases')

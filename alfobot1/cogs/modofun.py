@@ -32,6 +32,7 @@ def creacionpool(tokens_limpios,percentil):
 					pool.at[i,'num'] = pool.at[i,'num']+1
 				else:
 					pool.at[i,'num']=1	
+	print(pool)
 	# Aplicamos percentil
 	pool['num']=pd.to_numeric(pool['num'])		
 	corte = np.percentile(pool['num'].values, percentil)
