@@ -18,10 +18,11 @@ def funresponse(message,self):
 		tokens_limpios = modelolemat.megatizer(message)[1]
 		#try:
 		pool = creacionpool(tokens_limpios, 1)
-		#print(pool)
-		respuesta = seleccionrespuesta(pool)
-		print(respuesta)
-		return respuesta
+		if len(pool)>0:
+			#print(pool)
+			respuesta = seleccionrespuesta(pool)
+			print(respuesta)
+			return respuesta
 
 def creacionpool(tokens_limpios,percentil):
 	pool = pd.DataFrame()
@@ -33,16 +34,17 @@ def creacionpool(tokens_limpios,percentil):
 					pool.at[i,'num'] = pool.at[i,'num']+1
 				else:
 					pool.at[i,'num']=1	
-	# Aplicamos percentil
-	pool['num']=pd.to_numeric(pool['num'])		
-	corte = np.percentile(pool['num'].values, percentil)
-	# df con índice de la frase y num de tokens coincidentes
-	pool = pool[pool['num']>=corte]
-	pool['frases']=pool.index
+	if len(pool)>0:
+		# Aplicamos percentil
+		pool['num']=pd.to_numeric(pool['num'])		
+		corte = np.percentile(pool['num'].values, percentil)
+		# df con índice de la frase y num de tokens coincidentes
+		pool = pool[pool['num']>=corte]
+		pool['frases']=pool.index
 
-	# Añadimos datos de puntuaciones:
-	df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
-	pool = df_puntuacion.merge(pool,how='right',on='frases')
+		# Añadimos datos de puntuaciones:
+		df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
+		pool = df_puntuacion.merge(pool,how='right',on='frases')
 	print(pool)
 	# Columnas de pool: frases, num_reacciones, num_risas, num, num_usada
 	return pool
