@@ -1,7 +1,7 @@
 #Cog Espía
 import discord 
 from discord.ext import commands
-from funciones import modelolemat
+from funciones import modeloMegat
 from funciones import mantenimiento
 from funciones import modeloPuntuacion
 
@@ -9,6 +9,7 @@ class Espia(commands.Cog):
 	def __init__(self, client):
 		self.client = client
 		self._last_member = None
+
 	@commands.Cog.listener()
 	async def on_message(self, message):
 		print(message.author,
@@ -18,8 +19,9 @@ class Espia(commands.Cog):
 			message.flags,
 			message.mentions
 			)
-		tokens_limpios=modelolemat.megatizer(message)[1]
+		tokens_limpios=modeloMegat.megatizer(message)[0]
 		mantenimiento.guardadoinputs(message, tokens_limpios)
+
 	if message.author == self.client.user:
 		def checkRisa(m):
 			return bool(re.search(r'jaj',m.content))
@@ -32,12 +34,12 @@ class Espia(commands.Cog):
 			modeloPuntuacion.guardarjaja(respuesta)
 			await message.channel.send(modoFUN.risaReaccion())
 			print('risa detectada')
+
 			# Envía gif:
 			embed = discord.Embed(colour=discord.Colour.blue())
 			session = aiohttp.ClientSession()
 
 			# Gif sobre temática 'search':
-
 			search=random.choice(tokens_limpios)
 
 			response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key='+apiGiphy+'&limit=10')
@@ -47,6 +49,8 @@ class Espia(commands.Cog):
 			await session.close()
 
 			await message.channel.send(embed=embed)
+
+	# Guarda reacciones		
 	@commands.Cog.listener()
 	async def on_raw_reaction_add(self, payload):
 		channel = await self.client.fetch_channel(payload.channel_id)
