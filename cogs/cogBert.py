@@ -68,7 +68,7 @@ class CogBert(commands.Cog):
 
                         plt.rcParams["figure.figsize"] = [7.00, 3.50]
                         # plt.rcParams["figure.autolayout"] = True
-                        x = np.arange(-10., 10., 0.2)
+                        x = np.arange(-10., 10., 0.01)
                         #y = arctanh(x)
                         fig = plt.figure()
                         ax = fig.add_subplot(1, 1, 1)
@@ -76,7 +76,7 @@ class CogBert(commands.Cog):
                         ax.spines['bottom'].set_position('center')
                         ax.spines['right'].set_color('none')
                         ax.spines['top'].set_color('none')
-                        plt.plot(x, y, label="y=x^2", c='blue')
+                        plt.plot(x, y, label='y='+str(y), c='blue',marker='.')
                         plt.legend(loc=1)
                         plt.savefig('datos/elmoline.png',dpi=150)#, bbox_inches='tight') # Guarda la imagen
                         
