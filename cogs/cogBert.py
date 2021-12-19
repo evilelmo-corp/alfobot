@@ -6,6 +6,8 @@ from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
+#from cogs import cogOptimo
+
 
 
 class CogBert(commands.Cog):
@@ -14,7 +16,12 @@ class CogBert(commands.Cog):
         self._last_member = None
     @commands.Cog.listener()
     async def on_message(self, message):
-        if (message.author != self.client.user) and (message.content not in ["jaja","jajajaj","jajaj","jaj"]):
+        try:
+            with open(f'funciones/cogactivo.txt',"r") as ca:
+                cog_activo=ca.read()
+        except:
+            cog_activo=False
+        if (message.author != self.client.user) and (message.content not in ["jaja","jajajaj","jajaj","jaj"]) and (cog_activo != "True"):
             lista_tokens = modeloMegat.megatizer(message)[0]
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
@@ -36,8 +43,11 @@ class CogBert(commands.Cog):
                 elif tipo_request == "math":
                     await message.channel.send(str("Yo también sé hacer matemática"))
                 elif tipo_request == "grid":
+                    
+                    await message.channel.send(str("Dime qué optimizar"))
+                    #CogOptimo.preguntasIniciales(message)
                     await message.channel.send(str("Optimizatelo tú"))
-
+                    self.client.load_extension(f'cogs.cogOptimo')
                 elif tipo_request == "Install":
                     #await message.channel.send(str("PIP lo que quieras"))
 
