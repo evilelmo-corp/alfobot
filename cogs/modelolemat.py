@@ -1,3 +1,10 @@
+'''
+modeloLemat
+funciones:
+    lemmascrapper()
+    megatizer()
+'''
+
 import discord 
 import pickle
 from discord.ext import commands

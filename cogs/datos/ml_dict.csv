@@ -1,0 +1,20 @@
+codigo,nombre,trigger
+cod lr,Regresión Lineal,lineal
+cod mr,Regresión Multilineal,multilineal
+cod pr,Regresión Polinomial,polinomial
+cod knn,Clasificación KNN,knn nearest neighbours
+cod nb,Clasificación Naive-Bayes,naive-bayes
+cod logr,Regresión Logística,logistica logística
+cod dt,Árbol de decisión,árbol arbol decision decisión tree
+cod rf,Random Forests,randomforests
+cod km,K-means,k-means
+cod hc,Hierarquical Clustering,hierarquical clustering jerarquico jerárquico
+cod pca,PCA,pca
+cod vpca,PCA varianza con gráfico,pca 
+cod sc,Escalar,Escalar
+cod tts,Train test split,train-test-split
+cod acs,Accuracy scores,accuracy
+cod ho,Hold Out,hold-out
+cod loo,Leave one out,leave-one-out
+cod kfc,K-fold Cross Validation,kfold k-fold
+cod skf,Stratified K-fold,stratified k-fold kfold

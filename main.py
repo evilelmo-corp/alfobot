@@ -26,8 +26,6 @@ async def on_ready():
     print('My bot is ready')
 
 
-
-
 #Comando de encendido
 @client.command()
 async def despierta(ctx):

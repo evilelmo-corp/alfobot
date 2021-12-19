@@ -8,8 +8,10 @@ import pandas as pd
 import nltk
 import re
 import math
-import json
+# Para Giphy
 import aiohttp
+import json
+# Para Youtube
 import urllib.parse, urllib.request, re
 
 from cogs import modelolemat

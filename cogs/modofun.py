@@ -5,7 +5,14 @@ import discord
 from discord.ext import commands
 import random
 
+'''
+Funciones que se usan en la intención fun.
 
+Funciones:
+	creacionpool(tokens,percentil)
+	seleccionrespuesta(pool)
+	risaReaccion()
+'''
 
 # Variables para creacionpool:
 global df_frasest
