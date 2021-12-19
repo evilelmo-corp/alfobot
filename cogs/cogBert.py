@@ -13,7 +13,7 @@ class CogBert(commands.Cog):
         self._last_member = None
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author != self.client.user:
+        if (message.author != self.client.user) and (message.content not in ["jaja","jajajaj","jajaj","jaj"]):
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
             if int(intencion)==3:
