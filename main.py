@@ -9,7 +9,7 @@ client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando 
 async def on_ready():
     await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "simplificar DATOS dejé atrás mi forma corpórea"))
     #Espía
-    # client.load_extension(f'cogs.espia')
+    client.load_extension(f'cogs.cogEspia')
     print('My bot is ready')
 
 #Comando de encendido
