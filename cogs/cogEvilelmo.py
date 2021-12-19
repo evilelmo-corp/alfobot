@@ -12,13 +12,13 @@ class Espia(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		print(message.author,
-			message.content,
-			message.channel,
-			message.clean_content,
-			message.flags,
-			message.mentions
-			)
+		# print(message.author,
+		# 	message.content,
+		# 	message.channel,
+		# 	message.clean_content,
+		# 	message.flags,
+		# 	message.mentions
+		# 	)
 		tokens_limpios=modeloMegat.megatizer(message)[0]
 		mantenimiento.guardadoinputs(message, tokens_limpios)
 

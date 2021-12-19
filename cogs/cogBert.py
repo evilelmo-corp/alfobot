@@ -5,6 +5,7 @@ from funciones import modeloBert
 from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
+from cogs import cogOptimo
 
 
 class CogBert(commands.Cog):
@@ -31,13 +32,17 @@ class CogBert(commands.Cog):
                 elif tipo_request == "math":
                     await message.channel.send(str("Yo también sé hacer matemática"))
                 elif tipo_request == "grid":
+                    self.client.load_extension(f'cogs.cogOptimo')
                     await message.channel.send(str("Optimizatelo tú"))
+                    cogOptimo.CogOptimo.preguntasIniciales(message)
                 elif tipo_request == "Install":
                     await message.channel.send(str("PIP lo que quieras"))
                 elif tipo_request == "Grafica":
                     await message.channel.send(str("Mi gráfica es mejor"))
                 elif tipo_request == "Analisis":
                     await message.channel.send(str("Te analizo lo que quieras"))
+                else:
+                    await message.channel.send(str("Si quieres algo dímelo claro, que no soy adivino"))
             elif int(intencion) == 2:
                 pass #hay que hacer
             else:
