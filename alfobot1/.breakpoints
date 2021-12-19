@@ -1,0 +1,20 @@
+{
+  "files": {
+    "frases.json": [
+      {
+        "id": "1a100420-36e5-4b1d-8f1a-7ff2b4e28e51",
+        "line": 5,
+        "version": 2265,
+        "index": 189
+      }
+    ],
+    "inputs.csv": [
+      {
+        "id": "d3204268-03dd-4a47-b4f9-b8735cc569c4",
+        "line": 154,
+        "version": 44,
+        "index": 16278
+      }
+    ]
+  }
+}

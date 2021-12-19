@@ -6,7 +6,7 @@ import numpy as np
 from pytorch_pretrained_bert import BertTokenizer, BertConfig
 import pickle
 
-with open(f'cogs/datos/Bert_unicornio','rb') as ba:
+with open(f'datos/Bert_unicornio','rb') as ba:
 	global model
 	model=pickle.load(ba)
 

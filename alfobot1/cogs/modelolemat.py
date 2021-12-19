@@ -25,7 +25,11 @@ global palabras_funcionales
 global puntuacion
 global lemma_ray
 
-nombres_propios=pd.read_csv('cogs/datos/nombres_propios.txt')
+nombres_propios=pd.DataFrame(columns=["nombre"])
+try:
+    nombres_propios=pd.read_csv(f'cogs/datos/nombres_propios.txt')
+except:
+    pass
 #nombres_propios.columns='nombre'
 
 with open(f'cogs/datos/palabras_funcionales.txt','r') as fh:

@@ -49,7 +49,7 @@ class CogRequest(commands.Cog):
             for i in range(len(codigo)):
                 msg+="\n"+str(i+1)+"    "+str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
 
-            await message.channel.send(msg)
+            message.channel.send(msg)
 
             @commands.Cog.listener()
             async def on_message(self, message):
@@ -58,18 +58,14 @@ class CogRequest(commands.Cog):
                     for i in range(len(codigo)):
                         if str(i+1) in message.content:
                             ind=i
-                            msg='Aquí tienes el código, pedazo de crack \n\n'+
-                            str(ml_dict[ml_dict['codigo']==codigo[ind]]['nombre'].values[0])+'\n\n'+
-                            str(df_data[df_data['key']==codigo[ind]]['value'].values[0])
+                            msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[ind]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[ind]]['value'].values[0])
 
         else:
-            msg='Aquí tienes el código, pedzado de crack \n\n'+
-            str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])+'\n\n'+
-            str(df_data[df_data['key']==codigo[0]]['value'].values[0])
+            msg='Aquí tienes el código, pedzado de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
 
-        await message.channel.send(msg)
+        message.channel.send(msg)
 
-    def bitcoin():
+    async def bitcoin():
         import requests
         from bs4 import BeautifulSoup
         url = "https://markets.businessinsider.com/currencies/btc-eur"
@@ -88,7 +84,7 @@ class CogRequest(commands.Cog):
         import matplotlib.pyplot as plt
         import math
 
-        await message.channel.send("Escribe la ecuación que quieres graficar")
+        return message.channel.send("Escribe la ecuación que quieres graficar")
 
         @commands.Cog.listener()
         async def on_message(self, message):

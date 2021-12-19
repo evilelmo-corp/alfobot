@@ -118,6 +118,13 @@ class Partymode(commands.Cog):
         user = await self.client.fetch_user(payload.user_id)
         emoji = payload.emoji
         modelopuntuacion.guardarreacciones(self.client.user, message,emoji)
+    @commands.Cog.listener()
+    async def on_message(self, message):
+        if message.content == "despierta":
+            self.client.load_extension(f'cogs.modoprofe')
+          
+            await message.channel.send('Chicos, vamos serios. Hablad. desde party')
 
 def setup(client):
     client.add_cog(Partymode(client))
+
