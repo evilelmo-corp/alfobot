@@ -5,7 +5,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import random
-from funciones import modeloMegat
+from funciones import modelolemat
 
 global df_frasest
 global tokens_alfonso
@@ -15,13 +15,14 @@ tokens_alfonso=df_frasest.columns.drop(['frase','tokenizado'])
 
 def funresponse(message,self):
 	if message.author != self.client.user:
-		tokens_limpios = modeloMegat.megatizer(message)[1]
+		tokens_limpios = modelolemat.megatizer(message)[1]
 		#try:
-		pool = creacionpool(tokens_limpios, 5)
-		#print(pool)
-		respuesta = seleccionrespuesta(pool)
-		print(respuesta)
-		return respuesta
+		pool = creacionpool(tokens_limpios, 1)
+		if len(pool)>0:
+			#print(pool)
+			respuesta = seleccionrespuesta(pool)
+			print(respuesta)
+			return respuesta
 
 def creacionpool(tokens_limpios,percentil):
 	pool = pd.DataFrame()
@@ -33,15 +34,18 @@ def creacionpool(tokens_limpios,percentil):
 					pool.at[i,'num'] = pool.at[i,'num']+1
 				else:
 					pool.at[i,'num']=1	
-	# Aplicamos percentil
-	pool['num']=pd.to_numeric(pool['num'])		
-	corte = np.percentile(pool['num'].values, percentil)
-	# df con índice de la frase y num de tokens coincidentes
-	pool = pool[pool['num']>=corte]
-	pool['frases']=pool.index
-	# Añadimos datos de puntuaciones:
-	df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
-	pool = df_puntuacion.merge(pool,how='right',on='frases')
+	if len(pool)>0:
+		# Aplicamos percentil
+		pool['num']=pd.to_numeric(pool['num'])		
+		corte = np.percentile(pool['num'].values, percentil)
+		# df con índice de la frase y num de tokens coincidentes
+		pool = pool[pool['num']>=corte]
+		pool['frases']=pool.index
+
+		# Añadimos datos de puntuaciones:
+		df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
+		pool = df_puntuacion.merge(pool,how='right',on='frases')
+	print(pool)
 	# Columnas de pool: frases, num_reacciones, num_risas, num, num_usada
 	return pool
 
