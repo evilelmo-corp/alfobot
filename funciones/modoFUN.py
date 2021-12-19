@@ -5,7 +5,7 @@ import pickle
 import pandas as pd
 import numpy as np
 import random
-from funciones import modelolemat
+from funciones import modeloMegat
 
 global df_frasest
 global tokens_alfonso
@@ -15,7 +15,7 @@ tokens_alfonso=df_frasest.columns.drop(['frase','tokenizado'])
 
 def funresponse(message,self):
 	if message.author != self.client.user:
-		tokens_limpios = modelolemat.megatizer(message)[1]
+		tokens_limpios = modeloMegat.megatizer(message)[1]
 		#try:
 		pool = creacionpool(tokens_limpios, 1)
 		if len(pool)>0:

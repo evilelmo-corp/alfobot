@@ -4,6 +4,7 @@ from discord.ext import commands
 from funciones import modeloBert
 from funciones import modoFUN
 from funciones import modeloPuntuacion
+from funciones import modeloNBrequest
 
 
 class CogBert(commands.Cog):
@@ -21,10 +22,22 @@ class CogBert(commands.Cog):
                 except:
                     pass
             elif int(intencion) == 1:
-                pass #ADRI lo hizo
-                #tipo_request=modelo.adri(message.content)
-                #if tipo_request == x:
-
+                tipo_request=modeloNBrequest.decision_request(message.content)
+                await message.channel.send(str(tipo_request))
+                if tipo_request == "ML":
+                    await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
+                elif tipo_request == "Bitcoin":
+                    await message.channel.send(str("Bitcoin"))
+                elif tipo_request == "math":
+                    await message.channel.send(str("Yo también sé hacer matemática"))
+                elif tipo_request == "grid":
+                    await message.channel.send(str("Optimizatelo tú"))
+                elif tipo_request == "Install":
+                    await message.channel.send(str("PIP lo que quieras"))
+                elif tipo_request == "Grafica":
+                    await message.channel.send(str("Mi gráfica es mejor"))
+                elif tipo_request == "Analisis":
+                    await message.channel.send(str("Te analizo lo que quieras"))
             elif int(intencion) == 2:
                 pass #hay que hacer
             else:

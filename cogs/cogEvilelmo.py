@@ -24,7 +24,7 @@ class Espia(commands.Cog):
 
 		if (message.author == self.client.user) and (message.content not in ["0","1","2","3"]):
 
-			print("mensaje de ALFO")
+			print("mensaje de ALFO",message)
 			def checkRisa(m):
 				return bool(re.search(r'jaj',m.content))
 			risa = False
@@ -32,6 +32,7 @@ class Espia(commands.Cog):
 				risa = await self.client.wait_for('message', timeout = 60.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
 				print("risaencontrada")
 			except:
+				print(risa)
 				pass
 			if risa != False:
 				modeloPuntuacion.guardarjaja(respuesta)
