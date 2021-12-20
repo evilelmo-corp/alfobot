@@ -7,8 +7,14 @@ from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
 
-import pandas as pd
+# Para gráficas
 import numpy as np
+from numpy import sin, cos, tan, arcsin, arccos, arctan, hypot, arctan2, degrees, radians, sinh, cosh, tanh, arcsinh, arccosh, arctanh, exp, log, log10, log2 
+import matplotlib.pyplot as plt
+import math
+
+import pandas as pd
+import pickle
 #from cogs import cogOptimo
 
 # Variables globales para electorCode:
@@ -40,8 +46,6 @@ class CogBert(commands.Cog):
             cog_activo=False
         if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and len(message.content)>1:
             lista_tokens = modeloMegat.megatizer(message)[1]
-            # with open(f'datos/lista_tokens.txt',"w") as ca:
-            #     ca.write(lista_tokens)
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
             # Modo Fun
@@ -70,28 +74,29 @@ class CogBert(commands.Cog):
                             msg+="\n"+str(i+1)+"    "+str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
 
                         await message.channel.send(msg)
+                        with open('file_code', "wb") as file_code:
+                            pickle.dump(codigo, file_code)
+
                         # Llama al cog que recibe la respuesta
-                        #self.client.load_extension(f'cogs.cogElectorCodeAsk')
-                        def check(m):
-                            return len(m.content)==1 and m.channel == channel
-
-                        message = await client.wait_for('message', timeout = 60.0, check=check)
-                        msg='No me entero, crack'
-                        for i in range(len(codigo)):
-                            if str(i+1) in message.content:
-                                ind=i
-                                msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[ind]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[ind]]['value'].values[0])
+                        self.client.load_extension(f'cogs.cogElectorCodeAsk')
+                        
                     else:
-                        msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
+                        msg0='Aquí tienes el código, pedazo de crack \n\n'
+                        msg1=str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])
+                        msg2='\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
+                        msg=msg0+msg1+msg2
 
-                    await message.channel.send(msg)
+                        await message.channel.send(msg)
                     
                 # Request Bitcoin
                 elif tipo_request == "Bitcoin":
                     await message.channel.send(str("Bitcoin"))
                 # Request Math
                 elif tipo_request == "math":
+                    # for i in message.content.split():
+                    #     try:
                     await message.channel.send(str("Yo también sé hacer matemática"))
+
                 # Request GridSearch
                 elif tipo_request == "grid":
                     
@@ -119,10 +124,6 @@ class CogBert(commands.Cog):
 
                 elif tipo_request == "Grafica":
                     #await message.channel.send(str("Mi gráfica es mejor"))
-                    import numpy as np
-                    from numpy import sin, cos, tan, arcsin, arccos, arctan, hypot, arctan2, degrees, radians, sinh, cosh, tanh, arcsinh, arccosh, arctanh, exp, log, log10, log2 
-                    import matplotlib.pyplot as plt
-                    import math
 
                     try:
                         y=message.content.split('=')[1]
