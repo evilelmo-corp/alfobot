@@ -5,6 +5,9 @@ import pandas as pd
 import numpy as np
 import pickle
 
+# global mensaje
+
+
 # Variables globales para electorCode:
 global ml_dict
 global df_data
@@ -20,6 +23,9 @@ df_data=df_data.reset_index()
 df_data.columns=["key","value"]
 
 async def electorCode(lista_tokens,message,client):
+    # mensaje=message
+    with open('datos/pasarela_ch','rb') as fh:
+        df=pickle.load(fh)
     codigo=[]
     for i,trigger in enumerate(ml_dict['trigger']):
         for token in lista_tokens:
@@ -35,6 +41,11 @@ async def electorCode(lista_tokens,message,client):
         with open('file_code', "wb") as file_code:
             pickle.dump(codigo, file_code)
 
+        # Si llama a cogElectorCodeAsk
+        df.at[str(message.channel),'cogBert']=0
+        df.at[str(message.channel),'cogElectorCodeAsk']=1
+        with open('datos/pasarela_ch','wb') as fh:
+            pickle.dump(df,fh)
         # Llama al cog que recibe la respuesta
         client.load_extension(f'cogs.cogElectorCodeAsk')
         
@@ -45,3 +56,8 @@ async def electorCode(lista_tokens,message,client):
         msg=msg0+msg1+msg2
 
         await message.channel.send(msg)
+
+
+        df.at[str(message.channel),'cogBert']=1
+        with open('datos/pasarela_ch','wb') as fh:
+            pickle.dump(df,fh)

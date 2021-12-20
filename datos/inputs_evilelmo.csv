@@ -1001,3 +1001,178 @@ PCA
  pca = PCA 
  (n_components=3)
  X_train_pca = pca.fit_transform(X)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'pca', 'from', 'sklearn.decompos', 'impo', 'pca', 'pca', '=', 'pca', 'x_train_', '=', 'pca.fit_transfor'];--;[]
+2021-12-20 17:12:54.434942;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'Alfoobot despierta';--;['alfoob', 'despertar'];--;[]
+2021-12-20 17:13:04.443105;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 17:13:04.880477;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 17:13:26.486196;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'Machine learning';--;['machi', 'learni'];--;[]
+2021-12-20 17:13:31.949011;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 17:13:33.953686;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 17:13:35.716875;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 17:13:42.367105;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'cod knn';--;['cod', 'knn'];--;[]
+2021-12-20 17:13:46.782295;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 17:13:48.034064;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 17:13:49.235271;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 17:14:04.572185;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-20 17:14:05.529655;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'Tomás quiere comer';--;['tomás', 'querer', 'comer'];--;[]
+2021-12-20 17:14:07.376443;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'0';--;[];--;[]
+2021-12-20 17:14:18.584017;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'Marina quiere matar a alfonso';--;['marina', 'querer', 'matar', 'alfonso'];--;[]
+2021-12-20 17:14:20.610636;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'3';--;[];--;[]
+2021-12-20 17:15:35.931846;--;alfobot-testing;--;Adri#0739;--;'buscame en youtube adrian ceja';--;['busca', 'youtu', 'adri', 'ceja'];--;[]
+2021-12-20 17:15:41.146247;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 17:15:41.390116;--;alfobot-testing;--;microbot#9788;--;'No entiendo';--;['entender'];--;[]
+2021-12-20 17:15:42.623038;--;alfobot-testing;--;microbot#9788;--;'http://www.youtube.com/watch?v=b7mfqhH26OE';--;[];--;[]
+2021-12-20 17:16:06.922514;--;alfobot-testing;--;davidmoscoso#5401;--;'Optimiza';--;['optimizar'];--;[]
+2021-12-20 17:16:09.460837;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 17:16:10.509558;--;alfobot-testing;--;microbot#9788;--;'grid';--;['grid'];--;[]
+2021-12-20 17:16:11.643941;--;alfobot-testing;--;microbot#9788;--;'Dime qué optimizar';--;['dime', 'qué', 'optimizar'];--;[]
+2021-12-20 17:16:15.943928;--;alfobot-testing;--;microbot#9788;--;'Dime qué optimizar y yo lo hago:Necesito un csv con los datos limpio, MUY LIMPIO 
+También que me especifiques qué modelo deseas 
+Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?';--;['dime', 'qué', 'optimizar', 'hago:neces', 'csv', 'dato', 'limpio', 'limpio', 'también', 'especificar', 'qué', 'modelo', 'desear', 'ir', 'orden', 'ser', 'mágico', 'qué', 'tipo', 'modelo', 'querer'];--;[]
+2021-12-20 17:16:21.706415;--;alfobot-testing;--;davidmoscoso#5401;--;'Random';--;['rand'];--;[]
+2021-12-20 17:16:22.378870;--;alfobot-testing;--;microbot#9788;--;'Ahora necesito que me pases el data set en *.csv LIMPIO';--;['ahora', 'necesitar', 'pase', 'data', 'set', '*.cs', 'limpio'];--;[]
+2021-12-20 17:16:38.501392;--;Direct Message with davidmoscoso#5401;--;davidmoscoso#5401;--;'hola';--;['hola'];--;[]
+2021-12-20 17:16:48.577669;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'Si quisiste decir un modelo no se entendió, o no es optimizable. Cuando tengas algo decente avísame.';--;['si', 'querer', 'decir', 'modelo', 'entender', 'ser', 'optimiza', 'cuando', 'tener', 'decente', 'avísa'];--;[]
+2021-12-20 17:16:49.651524;--;Direct Message with davidmoscoso#5401;--;microbot#9788;--;'Ahora necesito que me pases el data set en *.csv LIMPIO';--;['ahora', 'necesitar', 'pase', 'data', 'set', '*.cs', 'limpio'];--;[]
+2021-12-20 23:19:03.352076;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 23:23:32.990893;--;alfobot-testing;--;davidmoscoso#5401;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 23:23:33.730387;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 23:23:36.109333;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 23:23:36.400994;--;Direct Message with Tomás#9078;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 23:23:36.755702;--;Direct Message with Tomás#9078;--;microbot#9788;--;'No entiendo';--;['entender'];--;[]
+2021-12-20 23:23:46.459226;--;alfobot-testing;--;davidmoscoso#5401;--;'Dime algo divertido';--;['dime', 'divertido'];--;[]
+2021-12-20 23:23:49.070369;--;alfobot-testing;--;microbot#9788;--;'0';--;[];--;[]
+2021-12-20 23:47:36.167392;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 23:47:36.582487;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 23:47:40.007863;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 23:47:44.240495;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 23:47:45.747986;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 23:47:47.019198;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 23:47:59.012749;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-20 23:48:03.148967;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 23:48:22.982941;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 23:52:23.884001;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 23:52:24.163559;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 23:52:28.257598;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 23:52:32.391437;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 23:52:33.407899;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 23:52:34.636973;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 23:52:45.777443;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-20 23:52:48.546681;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 23:52:53.047359;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 23:52:54.291434;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 23:52:55.733368;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 23:53:00.503445;--;alfobot-testing;--;microbot#9788;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-20 23:53:00.936437;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:00:15.411945;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 00:00:15.837789;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-21 00:00:19.997821;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 00:00:24.671570;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 00:00:26.176858;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 00:00:27.401880;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 00:00:40.069964;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-21 00:00:43.265974;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-21 00:00:48.982698;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 00:00:50.913627;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 00:00:52.231862;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 00:00:57.626278;--;alfobot-testing;--;microbot#9788;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-21 00:00:58.041401;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:01:08.643920;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+PCA
+
+```from sklearn.decomposition import PCA 
+ pca = PCA 
+ (n_components=3)
+ X_train_pca = pca.fit_transform(X)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'pca', 'from', 'sklearn.decompos', 'impo', 'pca', 'pca', '=', 'pca', 'x_train_', '=', 'pca.fit_transfor'];--;[]
+2021-12-21 00:01:12.181364;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 00:01:17.566934;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 00:01:18.678586;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 00:01:20.355904;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 00:01:33.856979;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-21 00:01:33.907819;--;alfobot-testing;--;Tomás#9078;--;'Marina quiere matar a Alfonso';--;['marina', 'querer', 'matar', 'alfonso'];--;[]
+2021-12-21 00:01:36.314884;--;alfobot-testing;--;microbot#9788;--;'3';--;[];--;[]
+2021-12-21 00:01:58.753744;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-21 00:02:38.986270;--;planificación-alfobot;--;Adri#0739;--;'OPERACIONES CON ALFO
+
+
+Codigo ML
+Precio BTC
+Grafica (barras, lineas, etc)
+Girdsearch
+Operaciones de mates
+Codigos de instalación
+Análisis morfológico (+eda básico?)
+Busqueda google
+busqueda Youtube
+Definición palabra (?)
+Docu libreria (?)
+---
+Contesta fun: (CITA o GIF)
+---
+Aprende:
+1) risas a sus frases
+2) emojis a sus frases
+3) lemmas 
+4)feedback de frases ambiguas
+----------------------
+Posibles implementaciones:
+>Proyectos de clase
+>Generación de texto
+>Resumen textos
+>Respuesta preguntas textos';--;['operación', 'alfo', 'codi', 'ml', 'precio', 'btc', 'grafi', 'barra', 'line', 'etcétera', 'girdsear', 'operación', 'mate', 'codig', 'instalación', 'análisis', 'morfológico', '+eda', 'básico', 'busque', 'goog', 'busque', 'youtu', 'definición', 'palabra', '', 'docu', 'librer', '', '', 'contes', 'fun', 'cita', 'gif', '', 'aprender', 'risa', 'frase', 'emoj', 'frase', 'lemm', 'frase', 'ambigu', '', 'posible', 'implementaci', 'proyecto', 'clase', 'generación', 'texto', 'resumen', 'texto', 'respuesta', 'pregunta', 'texto'];--;[]
+2021-12-21 00:02:39.656731;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 00:02:42.193100;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 00:02:43.516724;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 00:02:50.262145;--;alfobot-testing;--;microbot#9788;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-21 00:02:50.834201;--;alfobot-issues;--;davidmoscoso#5401;--;'1';--;[];--;[]
+2021-12-21 00:02:57.020206;--;planificación-alfobot;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:03:08.557087;--;planificación-alfobot;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:03:13.315220;--;planificación-alfobot;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 00:03:16.718601;--;planificación-alfobot;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 00:03:16.955280;--;planificación-alfobot;--;microbot#9788;--;'No entiendo';--;['entender'];--;[]
+2021-12-21 00:03:21.170048;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:03:52.357348;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-21 00:04:01.760492;--;alfobot-testing;--;davidmoscoso#5401;--;'Alfo estás ahi?';--;['alfo', 'estar', 'ahi'];--;[]
+2021-12-21 00:04:06.883128;--;alfobot-testing;--;microbot#9788;--;'2';--;[];--;[]
+2021-12-21 00:09:26.008328;--;alfobot-testing;--;davidmoscoso#5401;--;'';--;[];--;[]

@@ -12,8 +12,10 @@ class CogOptimo(commands.Cog):
 		
 	@commands.Cog.listener()
 	async def on_message(self, message):
+		with open('datos/pasarela_ch','rb') as fh:
+			df=pickle.load(fh)
 		m=0
-		if (message.author != self.client.user):
+		if (message.author != self.client.user) and (df.at[str(message.channel),'cogOptimo']==1):
 			if m==0:
 				if ("random" not in message.content.lower()) and ("knn" not in message.content.lower()):
 					await message.channel.send("Si quisiste decir un modelo no se entendió, o no es optimizable. Cuando tengas algo decente avísame.")
@@ -31,6 +33,10 @@ class CogOptimo(commands.Cog):
 				print("DEBERIA HABER UN ATTACHMENT")
 				print(message)
 				pass
+		df.at[str(message.channel),'cogOptimo']=0
+		df.at[str(message.channel),'cogBert']=1
+		with open('datos/pasarela_ch','wb') as fh:
+			pickle.dump(df,fh)
 
 
 def setup(client):
