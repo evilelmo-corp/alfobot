@@ -93,9 +93,15 @@ class CogBert(commands.Cog):
                     await message.channel.send(str("Bitcoin"))
                 # Request Math
                 elif tipo_request == "math":
-                    # for i in message.content.split():
-                    #     try:
-                    await message.channel.send(str("Yo también sé hacer matemática"))
+                    a=0
+                    for i in message.content.split():
+                        try:
+                            await message.channel.send('Aquí tienes, no era tan difícil \n'+str(eval(i)))
+                            a=1
+                        except:
+                            pass
+                    if a==0:
+                        await message.channel.send(str("Mira, no tengo tiempo para esto. Mejor pregúntale a Daniela, que sabe mucho de estas cosas"))
 
                 # Request GridSearch
                 elif tipo_request == "grid":
@@ -157,6 +163,19 @@ class CogBert(commands.Cog):
                     pass #hay que hacer
                 else:
                     pass
+            # if time:
+            if ("calcula" in message.content.lower()) or ("resuelve" in message.content.lower()) or ("resolv" in message.content.lower()):
+                a=0
+                for i in message.content.split():
+                    try:
+                        await message.channel.send('Aquí tienes, no era tan difícil \n'+str(eval(i)))
+                        a=1
+                    except:
+                        pass
+                if a==0:
+                    await message.channel.send(str("Mira, no tengo tiempo para esto. Mejor pregúntale a Daniela, que sabe mucho de estas cosas"))
+
+
 
 def setup(client):
     client.add_cog(CogBert(client))
