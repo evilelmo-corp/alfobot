@@ -38,7 +38,7 @@ class CogBert(commands.Cog):
                 cog_activo=ca.read()
         except:
             cog_activo=False
-        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True"):
+        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and len(message.content)>1:
             lista_tokens = modeloMegat.megatizer(message)[1]
             # with open(f'datos/lista_tokens.txt',"w") as ca:
             #     ca.write(lista_tokens)
@@ -84,7 +84,7 @@ class CogBert(commands.Cog):
                     else:
                         msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
 
-                        await message.channel.send(msg)
+                    await message.channel.send(msg)
                     
                 # Request Bitcoin
                 elif tipo_request == "Bitcoin":
