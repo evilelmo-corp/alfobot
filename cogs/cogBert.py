@@ -44,9 +44,7 @@ class CogBert(commands.Cog):
                     await message.channel.send(str("Yo también sé hacer matemática"))
                 elif tipo_request == "grid":
                     
-                    await message.channel.send(str("Dime qué optimizar"))
-                    #CogOptimo.preguntasIniciales(message)
-                    await message.channel.send(str("Optimizatelo tú"))
+                    await message.channel.send(str("Dime qué optimizar y yo lo hago:")+str("Necesito un csv con los datos limpio, MUY LIMPIO \n"+"También que me especifiques qué modelo deseas \n")+"Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?")
                     self.client.load_extension(f'cogs.cogOptimo')
                 elif tipo_request == "Install":
                     #await message.channel.send(str("PIP lo que quieras"))
