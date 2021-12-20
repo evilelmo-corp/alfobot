@@ -932,3 +932,72 @@ Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?';-
 2021-12-20 13:52:31.022108;--;alfobot-testing;--;Jockie Music (2)#8488;--;'';--;[];--;[]
 2021-12-20 13:52:31.500383;--;alfobot-testing;--;microbot#9788;--;'0';--;[];--;[]
 2021-12-20 13:52:33.103979;--;alfobot-testing;--;microbot#9788;--;'http://www.youtube.com/watch?v=5qap5aO4i9A';--;[];--;[]
+2021-12-20 13:57:13.835985;--;alfobot-issues;--;Tomás#9078;--;'Estamos haciendo un bot de discord y tiene diversos cogs. Queremos que cuando el cog principal (que escucha mensajes) se active (que lo hace con un comando que recibe main.py) solo responda a mensajes del canal que lo ha activado.
+Hemos pensado que en main.py se podría guardar en un archivo el nombre el canal que activa el cog principal y así este lo lea cada vez y sólo reaccione si el canal del mensaje que llega está en ese archivo';--;['estar', 'hacer', 'bot', 'disco', 'tener', 'diverso', 'cogs', 'querer', 'cuando', 'cog', 'principal', 'que', 'escuchar', 'mensaje', 'activar', 'que', 'hacer', 'comando', 'recibir', 'main.', 'solo', 'responder', 'mensaje', 'canal', 'haber', 'activar', 'haber', 'pensar', 'main.', 'poder', 'guardar', 'archivar', 'nombre', 'canal', 'activo', 'cog', 'principal', 'así', 'leer', 'cada', 'vez', 'sólo', 'reaccionar', 'si', 'canal', 'mensaje', 'llegar', 'estar', 'archivar'];--;[]
+2021-12-20 13:57:21.355584;--;alfobot-issues;--;microbot#9788;--;'0';--;[];--;[]
+2021-12-20 16:19:41.179747;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:21:06.661263;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:21:07.298046;--;Direct Message with Tomás#9078;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 16:21:12.437093;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 16:21:15.819359;--;Direct Message with Tomás#9078;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:21:16.693754;--;Direct Message with Tomás#9078;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:21:17.736946;--;Direct Message with Tomás#9078;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:22:14.183483;--;alfobot-testing;--;davidmoscoso#5401;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:22:15.083832;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:22:17.055840;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 16:22:17.830559;--;Direct Message with Tomás#9078;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:22:18.093522;--;Direct Message with Tomás#9078;--;microbot#9788;--;'No entiendo';--;['entender'];--;[]
+2021-12-20 16:22:21.941397;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 16:22:27.347749;--;alfobot-testing;--;davidmoscoso#5401;--;'cod knn';--;['cod', 'knn'];--;[]
+2021-12-20 16:22:30.126587;--;Direct Message with Tomás#9078;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:22:30.502443;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:22:31.330181;--;Direct Message with Tomás#9078;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:22:32.177338;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:22:33.271448;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:22:34.095943;--;Direct Message with Tomás#9078;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:23:56.414917;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:23:56.805525;--;Direct Message with Tomás#9078;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 16:24:00.265173;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 16:24:04.291342;--;Direct Message with Tomás#9078;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:24:05.375984;--;Direct Message with Tomás#9078;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:24:06.344144;--;Direct Message with Tomás#9078;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:24:16.078909;--;Direct Message with Tomás#9078;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-20 16:24:21.385098;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pcs';--;['dime', 'código', 'pcs'];--;[]
+2021-12-20 16:24:28.067830;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 16:24:32.084310;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:24:32.739599;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:24:33.661981;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:24:34.537790;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:24:35.550071;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:24:36.611466;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:24:42.179260;--;alfobot-testing;--;microbot#9788;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-20 16:24:42.575407;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-20 16:27:31.252162;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:27:34.813294;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 16:28:55.395101;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 16:28:55.949453;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 16:28:58.675426;--;alfobot-testing;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 16:29:02.683921;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-20 16:29:03.684786;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-20 16:29:04.823422;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 16:29:08.934982;--;alfobot-testing;--;microbot#9788;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-20 16:29:09.368820;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-20 16:29:16.678436;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+PCA
+
+```from sklearn.decomposition import PCA 
+ pca = PCA 
+ (n_components=3)
+ X_train_pca = pca.fit_transform(X)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'pca', 'from', 'sklearn.decompos', 'impo', 'pca', 'pca', '=', 'pca', 'x_train_', '=', 'pca.fit_transfor'];--;[]
