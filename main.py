@@ -1,5 +1,6 @@
 import discord 
 from discord.ext import commands
+from funciones import mantenimiento
 
 #Set del BOT
 client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
@@ -29,4 +30,4 @@ async def duerme(ctx):
 		print("No hay nada pickelizable")
 
 #TOKEN
-client.run('OTEzMTkxMTk4MTE2Njg3OTIy.YZ65kw.id9oVV8sMjXLkuEpR1FlC6-NNZA')
+client.run('OTEzNzA4MzA4MTE5MDMxODA5.YaCbLA.z8UODdgSP2VgIITnApqCGgkGKE8')
