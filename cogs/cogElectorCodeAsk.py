@@ -7,6 +7,12 @@ from discord.ext import commands
 import pickle
 import pandas as pd
 
+# from funciones import funElectorCode
+
+# global mensaje
+
+# mensaje=funElectorCode.mensaje
+
 # Variables globales para electorCode:
 global ml_dict
 global df_data
@@ -37,15 +43,25 @@ class cogElectorCode(commands.Cog):
     #self.client.unload_extension(f'cogs.cogBert')
     @commands.Cog.listener()
     async def on_message(self, message):
-        if message.author != self.client.user:
+        with open('datos/pasarela_ch','rb') as fh:
+            df=pickle.load(fh)
+        if message.author != self.client.user and (df.at[str(message.channel),'cogElectorCodeAsk']==1):
             msg='No me entero, crack'
             for i in range(len(codigo)):
                 if str(i+1) in message.content:
-                    ind=i
-                    msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[ind]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[ind]]['value'].values[0])
+                    msg0='Aquí tienes el código, pedazo de crack \n\n'
+                    msg1=str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
+                    msg2='\n\n'+str(df_data[df_data['key']==codigo[i]]['value'].values[0])
+                    msg=msg0+msg1+msg2
             await message.channel.send(msg)
+
         with open(f'funciones/cogactivo.txt',"w") as ca:
             ca.write("False")
+        df.at[str(message.channel),'cogElectorCodeAsk']=0
+        df.at[str(message.channel),'cogBert']=1
+        with open('datos/pasarela_ch','wb') as fh:
+            pickle.dump(df,fh)
+
         self.client.unload_extension(f'cogs.cogElectorCodeAsk')
 
 

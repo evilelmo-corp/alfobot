@@ -6,6 +6,7 @@ from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
+from funciones import funElectorCode
 
 # Para gráficas
 import numpy as np
@@ -17,19 +18,6 @@ import pandas as pd
 import pickle
 #from cogs import cogOptimo
 
-# Variables globales para electorCode:
-global ml_dict
-global df_data
-
-# Tabla de nombres de los códigos
-ml_dict=pd.read_csv('datos/ml_dict.csv')
-# Columnas de ml_dict: codigo, nombre, trigger
-
-# Tabla con los códigos
-df_data=pd.io.json.read_json(f'datos/datacheat.json')
-df_data=df_data.T
-df_data=df_data.reset_index()
-df_data.columns=["key","value"]
 
 
 
@@ -39,54 +27,42 @@ class CogBert(commands.Cog):
         self._last_member = None
     @commands.Cog.listener()
     async def on_message(self, message):
+        with open('datos/pasarela_ch','rb') as fh:
+            df=pickle.load(fh)
+        client=self.client
         try:
             with open(f'funciones/cogactivo.txt',"r") as ca:
                 cog_activo=ca.read()
         except:
             cog_activo=False
-        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and len(message.content)>1:
+
+        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and (len(message.content)>1) and (df.at[str(message.channel),'cogBert']==1):
+            msglower=message.content.lower()
             lista_tokens = modeloMegat.megatizer(message)[1]
             intencion=modeloBert.rayo_sesamo(message.content)
+            
+            # Intenciones:
+            # 0: Info   1: Request  2: Ask  3: Fun
             await message.channel.send(str(intencion))
-            # Modo Fun
+            # Modo Fun (3)
             if int(intencion)==3:
                 try:
                     await message.channel.send(modoFUN.funresponse(message,self))
                 except:
                     pass
-            # Modo Request
+            # Modo Request (1)
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
+                
                 # Request Elector Code
                 if tipo_request == "ML":
                     await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
-                    #self.client.load_extension(f'cogs.cogElectorCode')
-                    codigo=[]
-                    for i,trigger in enumerate(ml_dict['trigger']):
-                        for token in lista_tokens:
-                            if len(token)>1:
-                                if token in trigger:
-                                    codigo.append(ml_dict.at[i,'codigo'])
-                    if len(codigo)>1:
-                        msg='No me queda claro qué quieres, aclárate!'
-                        for i in range(len(codigo)):
-                            msg+="\n"+str(i+1)+"    "+str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
-
-                        await message.channel.send(msg)
-                        with open('file_code', "wb") as file_code:
-                            pickle.dump(codigo, file_code)
-
-                        # Llama al cog que recibe la respuesta
-                        self.client.load_extension(f'cogs.cogElectorCodeAsk')
-                        
-                    else:
-                        msg0='Aquí tienes el código, pedazo de crack \n\n'
-                        msg1=str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])
-                        msg2='\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
-                        msg=msg0+msg1+msg2
-
-                        await message.channel.send(msg)
+                    client=self.client
+                    # df.at[str(message.channel),'cogBert']=0
+                    # with open('datos/pasarela_ch','wb') as fh:
+                    #     pickle.dump(df,fh)
+                    await funElectorCode.electorCode(lista_tokens,message,client)
                     
                 # Request Bitcoin
                 elif tipo_request == "Bitcoin":
@@ -109,6 +85,11 @@ class CogBert(commands.Cog):
                     await message.channel.send(str("Dime qué optimizar"))
                     #CogOptimo.preguntasIniciales(message)
                     await message.channel.send(str("Dime qué optimizar y yo lo hago:")+str("Necesito un csv con los datos limpio, MUY LIMPIO \n"+"También que me especifiques qué modelo deseas \n")+"Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?")
+                    df.at[str(message.channel),'cogBert']=0
+                    df.at[str(message.channel),'cogOptimo']=1
+                    with open('datos/pasarela_ch','wb') as fh:
+                        pickle.dump(df,fh)                    
+                    
                     self.client.load_extension(f'cogs.cogOptimo')
                 elif tipo_request == "Install":
                     #await message.channel.send(str("PIP lo que quieras"))
@@ -159,14 +140,27 @@ class CogBert(commands.Cog):
 
                 elif tipo_request == "Analisis":
                     await message.channel.send(str("Te analizo lo que quieras"))
-                elif int(intencion) == 2:
-                    pass #hay que hacer
-                else:
-                    pass
+
+            # Modo ask:
+            elif int(intencion)==2:
+                # Búsqueda en Youtube
+                if "youtube" in msglower:
+                    import urllib.parse, urllib.request, re
+
+                    search = msglower.split('youtube')[1].split()
+
+                    #search=['pollo mercadona', 'data']
+
+                    query_string = urllib.parse.urlencode({'search_query': search})
+                    htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
+                    search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
+                    msg='http://www.youtube.com/watch?v=' + search_results[0]
+                    await message.channel.send(msg)
+
             # if time:
-            if ("calcula" in message.content.lower()) or ("resuelve" in message.content.lower()) or ("resolv" in message.content.lower()):
+            if ("calcula" in msglower) or ("resuelve" in msglower) or ("resolv" in msglower):
                 a=0
-                for i in message.content.split():
+                for i in msglower.split():
                     try:
                         await message.channel.send('Aquí tienes, no era tan difícil \n'+str(eval(i)))
                         a=1
@@ -174,8 +168,18 @@ class CogBert(commands.Cog):
                         pass
                 if a==0:
                     await message.channel.send(str("Mira, no tengo tiempo para esto. Mejor pregúntale a Daniela, que sabe mucho de estas cosas"))
+            if "youtube" in msglower:
+                import urllib.parse, urllib.request, re
 
+                search = msglower.split('youtube')[1].split()
 
+                #search=['pollo mercadona', 'data']
+
+                query_string = urllib.parse.urlencode({'search_query': search})
+                htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
+                search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
+                msg='http://www.youtube.com/watch?v=' + search_results[0]
+                await message.channel.send(msg)
 
 def setup(client):
     client.add_cog(CogBert(client))
