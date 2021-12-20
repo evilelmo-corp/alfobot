@@ -1,9 +1,14 @@
 #CogOptimizador
 import discord 
 from discord.ext import commands
+import requests
+import pandas as pd
 
 with open(f'funciones/cogactivo.txt',"w") as ca:
     ca.write("True")
+
+global m
+m=0
 
 class CogOptimo(commands.Cog):
 	def __init__(self, client):
@@ -12,8 +17,8 @@ class CogOptimo(commands.Cog):
 		
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		m=0
 		if (message.author != self.client.user):
+			global m
 			if m==0:
 				if ("random" not in message.content.lower()) and ("knn" not in message.content.lower()):
 					await message.channel.send("Si quisiste decir un modelo no se entendió, o no es optimizable. Cuando tengas algo decente avísame.")
@@ -29,7 +34,20 @@ class CogOptimo(commands.Cog):
 				await message.channel.send("Ahora necesito que me pases el data set en *.csv LIMPIO")
 			elif m==1:
 				print("DEBERIA HABER UN ATTACHMENT")
-				print(message)
+				print(message.attachments)
+				print(message.attachments[0])
+				url=message.attachments[0]
+				r = requests.get(url, allow_redirects=True)
+				with open(f'datos/arc.csv', 'wb') as arc:
+					arc.write(r.content)
+				df=pd.read_csv('datos/arc.csv')
+				await message.channel.send("Indicame cuál de la siguientes es la columna clase: (Señala el índice de la columna)")
+				columnas=list(df.columns)
+				await message.channel.send(columnas)
+
+				y=df[columnas[int(message.content)]]
+				X=df.drop([columnas[int(message.content)]],axis=1)
+
 				pass
 
 
