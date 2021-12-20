@@ -32,7 +32,6 @@ df_data=df_data.reset_index()
 df_data.columns=["key","value"]
 
 
-
 class CogBert(commands.Cog):
     def __init__(self, client):
         self.client = client
@@ -44,17 +43,21 @@ class CogBert(commands.Cog):
                 cog_activo=ca.read()
         except:
             cog_activo=False
+
         if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and len(message.content)>1:
+            msglower=message.content.lower()
             lista_tokens = modeloMegat.megatizer(message)[1]
             intencion=modeloBert.rayo_sesamo(message.content)
+            # Intenciones:
+            # 0: Info   1: Request  2: Ask  3: Fun
             await message.channel.send(str(intencion))
-            # Modo Fun
+            # Modo Fun (3)
             if int(intencion)==3:
                 try:
                     await message.channel.send(modoFUN.funresponse(message,self))
                 except:
                     pass
-            # Modo Request
+            # Modo Request (1)
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
@@ -159,14 +162,27 @@ class CogBert(commands.Cog):
 
                 elif tipo_request == "Analisis":
                     await message.channel.send(str("Te analizo lo que quieras"))
-                elif int(intencion) == 2:
-                    pass #hay que hacer
-                else:
-                    pass
+
+            # Modo ask:
+            elif int(intencion)==2:
+                # Búsqueda en Youtube
+                if "youtube" in msglower:
+                    import urllib.parse, urllib.request, re
+
+                    search = msglower.split('youtube')[1].split()
+
+                    #search=['pollo mercadona', 'data']
+
+                    query_string = urllib.parse.urlencode({'search_query': search})
+                    htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
+                    search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
+                    msg='http://www.youtube.com/watch?v=' + search_results[0]
+                    await message.channel.send(msg)
+
             # if time:
-            if ("calcula" in message.content.lower()) or ("resuelve" in message.content.lower()) or ("resolv" in message.content.lower()):
+            if ("calcula" in msglower) or ("resuelve" in msglower) or ("resolv" in msglower):
                 a=0
-                for i in message.content.split():
+                for i in msglower.split():
                     try:
                         await message.channel.send('Aquí tienes, no era tan difícil \n'+str(eval(i)))
                         a=1
@@ -174,8 +190,18 @@ class CogBert(commands.Cog):
                         pass
                 if a==0:
                     await message.channel.send(str("Mira, no tengo tiempo para esto. Mejor pregúntale a Daniela, que sabe mucho de estas cosas"))
+            if "youtube" in msglower:
+                import urllib.parse, urllib.request, re
 
+                search = msglower.split('youtube')[1].split()
 
+                #search=['pollo mercadona', 'data']
+
+                query_string = urllib.parse.urlencode({'search_query': search})
+                htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
+                search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
+                msg='http://www.youtube.com/watch?v=' + search_results[0]
+                await message.channel.send(msg)
 
 def setup(client):
     client.add_cog(CogBert(client))
