@@ -6,7 +6,30 @@ from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
+
+# Para gráficas
+import numpy as np
+from numpy import sin, cos, tan, arcsin, arccos, arctan, hypot, arctan2, degrees, radians, sinh, cosh, tanh, arcsinh, arccosh, arctanh, exp, log, log10, log2 
+import matplotlib.pyplot as plt
+import math
+
+import pandas as pd
+import pickle
 #from cogs import cogOptimo
+
+# Variables globales para electorCode:
+global ml_dict
+global df_data
+
+# Tabla de nombres de los códigos
+ml_dict=pd.read_csv('datos/ml_dict.csv')
+# Columnas de ml_dict: codigo, nombre, trigger
+
+# Tabla con los códigos
+df_data=pd.io.json.read_json(f'datos/datacheat.json')
+df_data=df_data.T
+df_data=df_data.reset_index()
+df_data.columns=["key","value"]
 
 
 
@@ -21,30 +44,65 @@ class CogBert(commands.Cog):
                 cog_activo=ca.read()
         except:
             cog_activo=False
-        if (message.author != self.client.user) and (message.content not in ["jaja","jajajaj","jajaj","jaj"]) and (cog_activo != "True"):
-            lista_tokens = modeloMegat.megatizer(message)[0]
+        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and len(message.content)>1:
+            lista_tokens = modeloMegat.megatizer(message)[1]
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
+            # Modo Fun
             if int(intencion)==3:
                 try:
                     await message.channel.send(modoFUN.funresponse(message,self))
                 except:
                     pass
+            # Modo Request
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
+                # Request Elector Code
                 if tipo_request == "ML":
                     await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
-                    self.client.load_extension(f'cogs.cogElectorCode')
+                    #self.client.load_extension(f'cogs.cogElectorCode')
+                    codigo=[]
+                    for i,trigger in enumerate(ml_dict['trigger']):
+                        for token in lista_tokens:
+                            if len(token)>1:
+                                if token in trigger:
+                                    codigo.append(ml_dict.at[i,'codigo'])
+                    if len(codigo)>1:
+                        msg='No me queda claro qué quieres, aclárate!'
+                        for i in range(len(codigo)):
+                            msg+="\n"+str(i+1)+"    "+str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
 
-                    message.channel.send(msg)
+                        await message.channel.send(msg)
+                        with open('file_code', "wb") as file_code:
+                            pickle.dump(codigo, file_code)
+
+                        # Llama al cog que recibe la respuesta
+                        self.client.load_extension(f'cogs.cogElectorCodeAsk')
+                        
+                    else:
+                        msg0='Aquí tienes el código, pedazo de crack \n\n'
+                        msg1=str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])
+                        msg2='\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
+                        msg=msg0+msg1+msg2
+
+                        await message.channel.send(msg)
+                    
+                # Request Bitcoin
                 elif tipo_request == "Bitcoin":
                     await message.channel.send(str("Bitcoin"))
+                # Request Math
                 elif tipo_request == "math":
+                    # for i in message.content.split():
+                    #     try:
                     await message.channel.send(str("Yo también sé hacer matemática"))
+
+                # Request GridSearch
                 elif tipo_request == "grid":
                     
-                    await message.channel.send(str("Dime qué optimizar y yo lo hago:")+str("Necesito un csv con los datos limpio, MUY LIMPIO \n"+"También que me especifiques qué modelo deseas \n")+"Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?")
+                    await message.channel.send(str("Dime qué optimizar"))
+                    #CogOptimo.preguntasIniciales(message)
+                    await message.channel.send(str("Optimizatelo tú"))
                     self.client.load_extension(f'cogs.cogOptimo')
                 elif tipo_request == "Install":
                     #await message.channel.send(str("PIP lo que quieras"))
@@ -66,10 +124,6 @@ class CogBert(commands.Cog):
 
                 elif tipo_request == "Grafica":
                     #await message.channel.send(str("Mi gráfica es mejor"))
-                    import numpy as np
-                    from numpy import sin, cos, tan, arcsin, arccos, arctan, hypot, arctan2, degrees, radians, sinh, cosh, tanh, arcsinh, arccosh, arctanh, exp, log, log10, log2 
-                    import matplotlib.pyplot as plt
-                    import math
 
                     try:
                         y=message.content.split('=')[1]
