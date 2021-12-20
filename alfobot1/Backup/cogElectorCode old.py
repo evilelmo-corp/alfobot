@@ -10,11 +10,11 @@ global ml_dict
 global df_data
 
 # Tabla de nombres de los códigos
-ml_dict=pd.read_csv('cogs/datos/ml_dict.csv')
+ml_dict=pd.read_csv('datos/ml_dict.csv')
 # Columnas de ml_dict: code, nombre, trigger
 
 # Tabla con los códigos
-df_data=pd.io.json.read_json(f'cogs/datos/datacheat.json')
+df_data=pd.io.json.read_json(f'datos/datacheat.json')
 df_data=df_data.T
 df_data=df_data.reset_index()
 df_data.columns=["key","value"]
