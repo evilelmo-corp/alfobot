@@ -6,6 +6,9 @@ from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
+
+import pandas as pd
+import numpy as np
 #from cogs import cogOptimo
 
 # Variables globales para electorCode:
@@ -13,11 +16,11 @@ global ml_dict
 global df_data
 
 # Tabla de nombres de los códigos
-ml_dict=pd.read_csv('cogs/datos/ml_dict.csv')
-# Columnas de ml_dict: code, nombre, trigger
+ml_dict=pd.read_csv('datos/ml_dict.csv')
+# Columnas de ml_dict: codigo, nombre, trigger
 
 # Tabla con los códigos
-df_data=pd.io.json.read_json(f'cogs/datos/datacheat.json')
+df_data=pd.io.json.read_json(f'datos/datacheat.json')
 df_data=df_data.T
 df_data=df_data.reset_index()
 df_data.columns=["key","value"]
@@ -37,8 +40,8 @@ class CogBert(commands.Cog):
             cog_activo=False
         if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True"):
             lista_tokens = modeloMegat.megatizer(message)[1]
-            with open(f'datos/lista_tokens.txt',"w") as ca:
-                ca.write(lista_tokens)
+            # with open(f'datos/lista_tokens.txt',"w") as ca:
+            #     ca.write(lista_tokens)
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
             # Modo Fun
@@ -58,9 +61,9 @@ class CogBert(commands.Cog):
                     codigo=[]
                     for i,trigger in enumerate(ml_dict['trigger']):
                         for token in lista_tokens:
-                            if len(token>1):
+                            if len(token)>1:
                                 if token in trigger:
-                                    codigo.append(ml_dict.at[i,'code'])
+                                    codigo.append(ml_dict.at[i,'codigo'])
                     if len(codigo)>1:
                         msg='No me queda claro qué quieres, aclárate!'
                         for i in range(len(codigo)):
