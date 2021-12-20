@@ -476,3 +476,53 @@ Clasificación KNN
 2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
 2021-12-20 01:25:00.136228;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
 2021-12-20 01:25:01.958930;--;alfobot-testing;--;Alfo-BOT#6622;--;'3';--;[];--;[]
+2021-12-20 01:27:49.243963;--;alfobot-testing;--;Tomás#9078;--;'dime codigo lineal';--;['dime', 'código', 'lineal'];--;[]
+2021-12-20 01:27:53.299968;--;alfobot-testing;--;Alfo-BOT#6622;--;'1';--;[];--;[]
+2021-12-20 01:27:54.218336;--;alfobot-testing;--;Alfo-BOT#6622;--;'ML';--;['ml'];--;[]
+2021-12-20 01:27:55.249237;--;alfobot-testing;--;Alfo-BOT#6622;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 01:28:00.249628;--;alfobot-testing;--;Alfo-BOT#6622;--;'No me queda claro qué quieres, aclárate!
+1    Regresión Lineal
+2    Regresión Multilineal';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'regresión', 'lineal', 'regresión', 'multilin'];--;[]
+2021-12-20 01:28:00.652067;--;alfobot-testing;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-20 01:28:02.467377;--;alfobot-testing;--;Alfo-BOT#6622;--;'3';--;[];--;[]
+2021-12-20 11:39:33.462539;--;alfobot-testing;--;Tomás#9078;--;'Vaya, eso suena bien';--;['ir', 'sonar', 'bien'];--;[]
+2021-12-20 11:39:55.851899;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 11:39:56.328774;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 11:39:59.619210;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-20 11:40:03.636930;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'1';--;[];--;[]
+2021-12-20 11:40:04.683046;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'ML';--;['ml'];--;[]
+2021-12-20 11:40:05.686666;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 11:40:14.647605;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-20 11:40:16.755241;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 11:40:20.703209;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'1';--;[];--;[]
+2021-12-20 11:40:21.480926;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'ML';--;['ml'];--;[]
+2021-12-20 11:40:22.343066;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 11:40:25.883400;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-20 11:40:35.012560;--;alfobot-testing;--;davidmoscoso#5401;--;'deberíamos usar esto en algo';--;['deber', 'usar'];--;[]
+2021-12-20 11:40:36.494167;--;alfobot-testing;--;Alfo-BOT#6622;--;'0';--;[];--;[]
+2021-12-20 11:40:46.403712;--;alfobot-testing;--;davidmoscoso#5401;--;'es un método de discord';--;['ser', 'método', 'disco'];--;[]
+2021-12-20 11:40:48.828342;--;alfobot-testing;--;Alfo-BOT#6622;--;'0';--;[];--;[]
+2021-12-20 11:40:53.353755;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'1';--;[];--;[]
+2021-12-20 11:41:04.371603;--;alfobot-testing;--;davidmoscoso#5401;--;'lo encendiste tu Tomás?';--;['encender', 'tomás'];--;[]
+2021-12-20 11:41:07.122864;--;alfobot-testing;--;Alfo-BOT#6622;--;'2';--;[];--;[]
+2021-12-20 11:42:37.742139;--;alfobot-testing;--;Tomás#9078;--;'si';--;['si'];--;[]
+2021-12-20 11:42:44.815109;--;alfobot-testing;--;Tomás#9078;--;'Estoy probando';--;['estar', 'probar'];--;[]
+2021-12-20 11:43:29.794047;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-20 11:43:30.235656;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-20 11:43:39.449766;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo pca';--;['dime', 'código', 'pca'];--;[]
+2021-12-20 11:43:43.158625;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'1';--;[];--;[]
+2021-12-20 11:43:44.052809;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'ML';--;['ml'];--;[]
+2021-12-20 11:43:44.949487;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-20 11:43:49.077001;--;Direct Message with Tomás#9078;--;Alfo-BOT#6622;--;'No me queda claro qué quieres, aclárate!
+1    PCA
+2    PCA varianza con gráfico';--;['quedar', 'claro', 'qué', 'querer', 'aclára', 'pca', 'pca', 'varian', 'gráfico'];--;[]
+2021-12-20 11:43:49.393221;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'1';--;[];--;[]
