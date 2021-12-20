@@ -14,7 +14,9 @@ class CogOptimo(commands.Cog):
 		
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		await message.channel.send("Pasé información")
+		if message.author != self.client.user:
+			await message.channel.send("Pasé información")
+			
 	# @commands.command()
 	# async def fin():
 	# 	await self.client.load(f'cog.cogBert')

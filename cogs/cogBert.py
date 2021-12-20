@@ -8,6 +8,20 @@ from funciones import modeloNBrequest
 from funciones import modeloMegat
 #from cogs import cogOptimo
 
+# Variables globales para electorCode:
+global ml_dict
+global df_data
+
+# Tabla de nombres de los códigos
+ml_dict=pd.read_csv('cogs/datos/ml_dict.csv')
+# Columnas de ml_dict: code, nombre, trigger
+
+# Tabla con los códigos
+df_data=pd.io.json.read_json(f'cogs/datos/datacheat.json')
+df_data=df_data.T
+df_data=df_data.reset_index()
+df_data.columns=["key","value"]
+
 
 
 class CogBert(commands.Cog):
@@ -21,27 +35,61 @@ class CogBert(commands.Cog):
                 cog_activo=ca.read()
         except:
             cog_activo=False
-        if (message.author != self.client.user) and (message.content not in ["jaja","jajajaj","jajaj","jaj"]) and (cog_activo != "True"):
-            lista_tokens = modeloMegat.megatizer(message)[0]
+        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True"):
+            lista_tokens = modeloMegat.megatizer(message)[1]
+            with open(f'datos/lista_tokens.txt',"w") as ca:
+                ca.write(lista_tokens)
             intencion=modeloBert.rayo_sesamo(message.content)
             await message.channel.send(str(intencion))
+            # Modo Fun
             if int(intencion)==3:
                 try:
                     await message.channel.send(modoFUN.funresponse(message,self))
                 except:
                     pass
+            # Modo Request
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
+                # Request Elector Code
                 if tipo_request == "ML":
                     await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
-                    self.client.load_extension(f'cogs.cogElectorCode')
+                    #self.client.load_extension(f'cogs.cogElectorCode')
+                    codigo=[]
+                    for i,trigger in enumerate(ml_dict['trigger']):
+                        for token in lista_tokens:
+                            if len(token>1):
+                                if token in trigger:
+                                    codigo.append(ml_dict.at[i,'code'])
+                    if len(codigo)>1:
+                        msg='No me queda claro qué quieres, aclárate!'
+                        for i in range(len(codigo)):
+                            msg+="\n"+str(i+1)+"    "+str(ml_dict[ml_dict['codigo']==codigo[i]]['nombre'].values[0])
 
-                    message.channel.send(msg)
+                        await message.channel.send(msg)
+                        # Llama al cog que recibe la respuesta
+                        #self.client.load_extension(f'cogs.cogElectorCodeAsk')
+                        def check(m):
+                            return len(m.content)==1 and m.channel == channel
+
+                        message = await client.wait_for('message', timeout = 60.0, check=check)
+                        msg='No me entero, crack'
+                        for i in range(len(codigo)):
+                            if str(i+1) in message.content:
+                                ind=i
+                                msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[ind]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[ind]]['value'].values[0])
+                    else:
+                        msg='Aquí tienes el código, pedazo de crack \n\n'+str(ml_dict[ml_dict['codigo']==codigo[0]]['nombre'].values[0])+'\n\n'+str(df_data[df_data['key']==codigo[0]]['value'].values[0])
+
+                        await message.channel.send(msg)
+                    
+                # Request Bitcoin
                 elif tipo_request == "Bitcoin":
                     await message.channel.send(str("Bitcoin"))
+                # Request Math
                 elif tipo_request == "math":
                     await message.channel.send(str("Yo también sé hacer matemática"))
+                # Request GridSearch
                 elif tipo_request == "grid":
                     
                     await message.channel.send(str("Dime qué optimizar"))
