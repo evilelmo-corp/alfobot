@@ -4,12 +4,12 @@ import pandas as pd
 import numpy as np
 import pickle
 
-from funciones import funBitcoin, funPypi, funGrapher, funElectorCode
+from funciones import funBitcoin, funPypi, funGrapher, funElectorCode, analRequest
 
 
 async def request(lista_tokens,message,client,tipo_request):
 
-    # Request Elector Code
+    # Request Machine Learning
     if tipo_request == "ML":
         await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
         #client=self.client
@@ -24,6 +24,7 @@ async def request(lista_tokens,message,client,tipo_request):
         await message.channel.send(str("Bitcoin"))
         msg = funBitcoin.bitcoin()
         await message.channel.send(msg)
+
     # Request Math
     elif tipo_request == "math":
         for i in message.content.split():
@@ -34,7 +35,6 @@ async def request(lista_tokens,message,client,tipo_request):
 
     # Request GridSearch
     elif tipo_request == "grid":
-        
         await message.channel.send(str("Dime qué optimizar"))
         #CogOptimo.preguntasIniciales(message)
         await message.channel.send(str("Dime qué optimizar y yo lo hago:")+str("Necesito un csv con los datos limpio, MUY LIMPIO \n"+"También que me especifiques qué modelo deseas \n")+"Pero vamos en orden, que nada de esto es mágico. ¿Qué tipo de modelo quieres?")
@@ -45,6 +45,7 @@ async def request(lista_tokens,message,client,tipo_request):
         
         self.client.load_extension(f'cogs.cogOptimo')
 
+    # Request install
     elif tipo_request == "Install":
         await message.channel.send(str("PIP lo que quieras"))
         try:
@@ -52,6 +53,7 @@ async def request(lista_tokens,message,client,tipo_request):
         except:
             await message.channel.send('Mira, búscalo y así aprendes')
 
+    # Request Gráfica
     elif tipo_request == "Grafica":
         #await message.channel.send(str("Mi gráfica es mejor"))
         mensaje=message
@@ -61,6 +63,9 @@ async def request(lista_tokens,message,client,tipo_request):
         except:
             await message.channel.send('Mejor preguntale a Daniela que sabe mucho de esto')
 
+    # Request Análisis
     elif tipo_request == "Analisis":
-        await message.channel.send(str("Te analizo lo que quieras"))
+        tags = analRequest.camerino(message.content)
+        await message.channel.send(str("Te analizo lo que quieras, toma"))
+        await message.channel.send(tags)
 
