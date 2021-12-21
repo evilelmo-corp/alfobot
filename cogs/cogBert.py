@@ -40,7 +40,7 @@ class CogBert(commands.Cog):
             
             # Intenciones:
             # 0: Info   1: Request  2: Ask  3: Fun
-            await message.channel.send(str(intencion))
+            #await message.channel.send(str(intencion))
 
             # Modo Fun (3)
             if int(intencion)==3:
@@ -71,6 +71,10 @@ class CogBert(commands.Cog):
                 # await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
                 
             # await funSecretT.secretT(lista_tokens,message,client)
+
+            elif int(intencion)==0:
+                msg='Intención 0 (Info)'
+                await message.channel.send(msg)
 
 
 def setup(client):

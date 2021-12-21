@@ -14,7 +14,7 @@ token='OTE3NzQzMTI3OTI0NzIzNzYy.Ya9I5A.c48WKkw4qsM5B0-OBscAB0C6baE'
 
 
 #Set del BOT
-client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
+client = commands.Bot(command_prefix = 'minibot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
 
 # Crea df en pickle vacío con las columnas de los cogs para que lo use funPasarelaChannel
 cogs_lista = [i[:-3] for i in os.listdir('./cogs') if i.startswith('cog')]
