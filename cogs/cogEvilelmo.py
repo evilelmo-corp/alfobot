@@ -4,6 +4,7 @@ from discord.ext import commands
 from funciones import modeloMegat
 from funciones import mantenimiento
 from funciones import modeloPuntuacion
+import re
 
 class Espia(commands.Cog):
 	def __init__(self, client):
