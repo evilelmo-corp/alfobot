@@ -10,6 +10,7 @@ from funciones import modeloNBask
 from funciones import funRequest
 from funciones import funSecretT
 from funciones import funAsk
+from funciones.comandos import lista_comandos
 
 
 import pandas as pd
@@ -33,7 +34,7 @@ class CogBert(commands.Cog):
         except:
             cog_activo=False
 
-        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and (len(message.content)>1) and (df.at[str(message.channel),'cogBert']==1):
+        if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and (len(message.content)>1) and (df.at[str(message.channel),'cogBert']==1) and (message.content not in lista_comandos):
             msglower=message.content.lower()
             lista_tokens = modeloMegat.megatizer(message)[1]
             intencion=modeloBert.rayo_sesamo(message.content)
