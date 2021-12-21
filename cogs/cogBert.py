@@ -6,14 +6,15 @@ from funciones import modoFUN
 from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
+from funciones import modeloNBask
 from funciones import funRequest
 from funciones import funSecretT
+from funciones import funAsk
 
 
 import pandas as pd
 import pickle
 #from cogs import cogOptimo
-
 
 
 
@@ -40,12 +41,14 @@ class CogBert(commands.Cog):
             # Intenciones:
             # 0: Info   1: Request  2: Ask  3: Fun
             await message.channel.send(str(intencion))
+
             # Modo Fun (3)
             if int(intencion)==3:
                 try:
                     await message.channel.send(modoFUN.funresponse(message,self))
                 except:
                     pass
+
             # Modo Request (1)
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
@@ -53,47 +56,15 @@ class CogBert(commands.Cog):
                 # Llama a la megafución request
                 await funRequest.request(lista_tokens,message,client,tipo_request)
 
-            # Modo ask:
+            # Modo ask (2):
             elif int(intencion)==2:
-                # Búsqueda en Youtube
-                if "youtube" in msglower:
-                    import urllib.parse, urllib.request, re
 
-                    search = msglower.split('youtube')[1].split()
-
-                    #search=['pollo mercadona', 'data']
-
-                    query_string = urllib.parse.urlencode({'search_query': search})
-                    htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
-                    search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
-                    msg='http://www.youtube.com/watch?v=' + search_results[0]
-                    await message.channel.send(msg)
-
-            # if time:
-            if ("calcula" in msglower) or ("resuelve" in msglower) or ("resolv" in msglower):
-                a=0
-                for i in msglower.split():
-                    try:
-                        await message.channel.send('Aquí tienes, no era tan difícil \n'+str(eval(i)))
-                        a=1
-                    except:
-                        pass
-                if a==0:
-                    await message.channel.send(str("Mira, no tengo tiempo para esto. Mejor pregúntale a Daniela, que sabe mucho de estas cosas"))
-            if "youtube" in msglower:
-                import urllib.parse, urllib.request, re
-
-                search = msglower.split('youtube')[1].split()
-
-                #search=['pollo mercadona', 'data']
-
-                query_string = urllib.parse.urlencode({'search_query': search})
-                htm_content = urllib.request.urlopen('http://www.youtube.com/results?' + query_string)
-                search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
-                msg='http://www.youtube.com/watch?v=' + search_results[0]
-                await message.channel.send(msg)
-            
+                tipo_request=modeloNBask.decision_ask(message.content)
+                await message.channel.send(str(tipo_request))
+                await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
+                
             await funSecretT.secretT(lista_tokens,message,client)
+
 
 def setup(client):
     client.add_cog(CogBert(client))
