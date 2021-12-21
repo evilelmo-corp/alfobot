@@ -1176,3 +1176,58 @@ Posibles implementaciones:
 2021-12-21 00:04:01.760492;--;alfobot-testing;--;davidmoscoso#5401;--;'Alfo estás ahi?';--;['alfo', 'estar', 'ahi'];--;[]
 2021-12-21 00:04:06.883128;--;alfobot-testing;--;microbot#9788;--;'2';--;[];--;[]
 2021-12-21 00:09:26.008328;--;alfobot-testing;--;davidmoscoso#5401;--;'';--;[];--;[]
+2021-12-21 14:58:50.830845;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 14:58:52.747011;--;alfobot-testing;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 14:58:56.510201;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-21 14:58:57.118658;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 14:58:57.882338;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 14:58:58.773481;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 14:59:05.920308;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-21 14:59:07.867949;--;alfobot-issues;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 15:09:26.202135;--;alfobot-testing;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 15:09:27.498508;--;alfobot-testing;--;Tomás#9078;--;'dime knn';--;['dime', 'knn'];--;[]
+2021-12-21 15:09:30.150938;--;alfobot-testing;--;microbot#9788;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-21 15:09:30.734042;--;alfobot-testing;--;microbot#9788;--;'1';--;[];--;[]
+2021-12-21 15:09:31.586270;--;alfobot-testing;--;microbot#9788;--;'ML';--;['ml'];--;[]
+2021-12-21 15:09:32.538391;--;alfobot-testing;--;microbot#9788;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 15:09:39.645355;--;alfobot-testing;--;microbot#9788;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-21 15:09:40.872826;--;alfobot-issues;--;Tomás#9078;--;'dime knn';--;['dime', 'knn'];--;[]
+2021-12-21 15:42:04.767353;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 15:42:05.712094;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-21 15:42:11.989511;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 15:42:15.248596;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'1';--;[];--;[]
+2021-12-21 15:42:16.164924;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'ML';--;['ml'];--;[]
+2021-12-21 15:42:17.108504;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 15:43:54.683197;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'Alfobot despierta';--;['alfob', 'despertar'];--;[]
+2021-12-21 15:43:54.972636;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'Chicos estoy aquí, hablen';--;['chico', 'estar', 'aquí', 'hablar'];--;[]
+2021-12-21 15:43:59.909382;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime codigo knn';--;['dime', 'código', 'knn'];--;[]
+2021-12-21 15:44:03.310364;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'1';--;[];--;[]
+2021-12-21 15:44:04.124835;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'ML';--;['ml'];--;[]
+2021-12-21 15:44:05.035724;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'TOMAS AQUI VA TU MAGIA';--;['tomas', 'aqui', 'ir', 'magia'];--;[]
+2021-12-21 15:44:12.798672;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'Aquí tienes el código, pedazo de crack 
+
+Clasificación KNN
+
+```from sklearn.neighbors import KNeighborsClassifier 
+ clasificador = KNeighborsClassifier(100, algorithm='brute') 
+ clasificador.fit(X_train, y_train) 
+ yhat = clasificador.predict(X_test)```';--;['aquí', 'tener', 'código', 'pedazo', 'crack', 'clasificación', 'knn', 'from', 'sklearn.neigh', 'impo', 'kneighborsclassi', 'clasificador', '=', "algorithm='br", 'clasificador.fit(x_', 'y_tra', 'yhat', '=', 'clasificador.predict(x'];--;[]
+2021-12-21 15:44:18.068374;--;Direct Message with Tomás#9078;--;Tomás#9078;--;'dime bitcoin';--;['dime', 'bitco'];--;[]
+2021-12-21 15:44:20.784998;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'1';--;[];--;[]
+2021-12-21 15:44:21.688933;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'Bitcoin';--;['bitco'];--;[]
+2021-12-21 15:44:22.516046;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'Bitcoin';--;['bitco'];--;[]
+2021-12-21 15:44:24.265580;--;Direct Message with Tomás#9078;--;AlfobotZ#9188;--;'El bitcoin está ahora a 43,268.59€. A qué estás esperando?';--;['bitco', 'estar', 'ahora', 'qué', 'estar', 'esperar'];--;[]

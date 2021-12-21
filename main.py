@@ -6,6 +6,15 @@ import pandas as pd
 import os
 import pickle
 
+# Alfobot Oficial token:
+token='OTEzMTkxMTk4MTE2Njg3OTIy.YZ65kw.id9oVV8sMjXLkuEpR1FlC6-NNZA'
+
+# AlfobotZ token
+#token='OTE3NzQzMTI3OTI0NzIzNzYy.Ya9I5A.c48WKkw4qsM5B0-OBscAB0C6baE'
+
+
+
+
 #Set del BOT
 client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
 
@@ -57,4 +66,4 @@ async def duerme(ctx):
 		print("No hay nada pickelizable")
 
 #TOKEN
-client.run('OTEzNzA4MzA4MTE5MDMxODA5.YaCbLA.z8UODdgSP2VgIITnApqCGgkGKE8')
+client.run(token)
