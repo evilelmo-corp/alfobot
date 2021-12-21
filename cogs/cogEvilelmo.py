@@ -5,6 +5,9 @@ from funciones import modeloMegat
 from funciones import mantenimiento
 from funciones import modeloPuntuacion
 import re
+import aiohttp
+import json
+import random
 
 class Espia(commands.Cog):
 	def __init__(self, client):
@@ -50,7 +53,7 @@ class Espia(commands.Cog):
 
 				# Gif sobre temática 'search':
 				search=random.choice(tokens_limpios)
-
+				apiGiphy='jL3uqKUkUBo2yiw9zOOimLlx8VDI3IiT'
 				response = await session.get('http://api.giphy.com/v1/gifs/search?q=' + search + '&api_key='+apiGiphy+'&limit=10')
 				data = json.loads(await response.text())
 				gif_choice = random.randint(0, 9)

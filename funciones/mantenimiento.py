@@ -8,8 +8,10 @@ from datetime import datetime
 def guardadoinputs(message,tokens_limpios):
 	sep=";--;"
 	with open(f"datos/inputs_evilelmo.csv","a") as fh:
-		fh.write("\n"+str(datetime.now())+sep+str(message.channel)+sep+str(message.author)+sep+"'"+str(message.clean_content)+"'"+sep+str(tokens_limpios)+sep+str(message.mentions))
-
+		try:
+			fh.write("\n"+str(datetime.now())+sep+str(message.channel)+sep+str(message.author)+sep+"'"+str(message.clean_content)+"'"+sep+str(tokens_limpios)+sep+str(message.mentions))
+		except:
+			pass
 
 def actualizarpickles():
 	'''
