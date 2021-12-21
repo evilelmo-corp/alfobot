@@ -36,8 +36,12 @@ class Espia(commands.Cog):
 				print(risa)
 				pass
 			if risa != False:
-				modeloPuntuacion.guardarjaja(respuesta)
-				await message.channel.send(modoFUN.risaReaccion())
+				try:
+					modeloPuntuacion.guardarjaja(message.content)
+					await message.channel.send(modoFUN.risaReaccion())
+				except:
+					pass
+				
 				print('risa detectada')
 
 				# Envía gif:
