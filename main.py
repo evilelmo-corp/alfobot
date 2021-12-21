@@ -7,16 +7,17 @@ import os
 import pickle
 
 # Alfobot Oficial token:
-token='OTEzMTkxMTk4MTE2Njg3OTIy.YZ65kw.id9oVV8sMjXLkuEpR1FlC6-NNZA'
+#token='OTEzMTkxMTk4MTE2Njg3OTIy.YZ65kw.id9oVV8sMjXLkuEpR1FlC6-NNZA'
 
 # AlfobotZ token
 #token='OTE3NzQzMTI3OTI0NzIzNzYy.Ya9I5A.c48WKkw4qsM5B0-OBscAB0C6baE'
 
-
+#Micro Bot token
+token='OTEzNzA4MzA4MTE5MDMxODA5.YaCbLA.z8UODdgSP2VgIITnApqCGgkGKE8'
 
 
 #Set del BOT
-client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando DATOS dejé atrás mi forma corpórea")
+client = commands.Bot(command_prefix = 'Micro ', description = "Naive Bayes")
 
 # Crea df en pickle vacío con las columnas de los cogs para que lo use funPasarelaChannel
 cogs_lista = [i[:-3] for i in os.listdir('./cogs') if i.startswith('cog')]
@@ -31,7 +32,7 @@ with open('datos/pasarela_ch','wb') as fh:
 #COG ESPIA GUARDA LA INFORMACIÓN RELEVANTE
 @client.event
 async def on_ready():
-    await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "simplificar DATOS dejé atrás mi forma corpórea"))
+    await client.change_presence(activity = discord.Activity(type = discord.ActivityType.playing, name = "Naive Bayes en acción"))
     #Espía
     client.load_extension(f'cogs.cogEvilelmo')
     print('My bot is ready')

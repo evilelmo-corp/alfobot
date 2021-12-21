@@ -43,23 +43,24 @@ class CogBert(commands.Cog):
 
             # Modo Fun (3)
             if int(intencion)==3:
-                try:
-                    await message.channel.send(modoFUN.funresponse(message,self))
-                except:
-                    pass
+                pass
+                # try:
+                #     await message.channel.send(modoFUN.funresponse(message,self))
+                # except:
+                #     pass
 
             # Modo Request (1)
             elif int(intencion) == 1:
                 tipo_request=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
                 # Llama a la megafución request
-                await funRequest.request(lista_tokens,message,client,tipo_request)
+                #await funRequest.request(lista_tokens,message,client,tipo_request)
 
             # Modo ask (2):
             elif int(intencion)==2:
                 tipo_request=modeloNBask.decision_ask(message.content)
                 await message.channel.send(str(tipo_request))
-                await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
+                #await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
 
 def setup(client):
     client.add_cog(CogBert(client))
