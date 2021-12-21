@@ -7,7 +7,7 @@ from funciones import modeloPuntuacion
 from funciones import modeloNBrequest
 from funciones import modeloMegat
 from funciones import funRequest
-
+from funciones import funSecretT
 
 
 import pandas as pd
@@ -92,6 +92,8 @@ class CogBert(commands.Cog):
                 search_results = re.findall(r'/watch\?v=(.{11})', htm_content.read().decode() )
                 msg='http://www.youtube.com/watch?v=' + search_results[0]
                 await message.channel.send(msg)
+            
+            await funSecretT.secretT(lista_tokens,message,client)
 
 def setup(client):
     client.add_cog(CogBert(client))
