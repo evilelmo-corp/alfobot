@@ -44,26 +44,33 @@ class CogBert(commands.Cog):
 
             # Modo Fun (3)
             if int(intencion)==3:
-                try:
-                    await message.channel.send(modoFUN.funresponse(message,self))
-                except:
-                    pass
+                msg='Intención 3 (Fun)'
+                await message.channel.send(msg)
+                # try:
+                #     await message.channel.send(modoFUN.funresponse(message,self))
+                # except:
+                #     pass
+                
 
             # Modo Request (1)
             elif int(intencion) == 1:
-                tipo_request=modeloNBrequest.decision_request(message.content)
-                await message.channel.send(str(tipo_request))
-                # Llama a la megafución request
-                await funRequest.request(lista_tokens,message,client,tipo_request)
+                msg='Intención 1 (Request)'
+                await message.channel.send(msg)
+                # tipo_request=modeloNBrequest.decision_request(message.content)
+                # await message.channel.send(str(tipo_request))
+                # # Llama a la megafución request
+                # await funRequest.request(lista_tokens,message,client,tipo_request)
 
             # Modo ask (2):
             elif int(intencion)==2:
+                msg='Intención 2 (Ask)'
+                await message.channel.send(msg)
 
-                tipo_request=modeloNBask.decision_ask(message.content)
-                await message.channel.send(str(tipo_request))
-                await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
+                # tipo_request=modeloNBask.decision_ask(message.content)
+                # await message.channel.send(str(tipo_request))
+                # await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
                 
-            await funSecretT.secretT(lista_tokens,message,client)
+            # await funSecretT.secretT(lista_tokens,message,client)
 
 
 def setup(client):
