@@ -35,7 +35,10 @@ async def despierta(ctx):
 	df.at[str(ctx.channel),'cogBert']=1
 	with open('datos/pasarela_ch','wb') as fh:
 		pickle.dump(df,fh)
-	client.load_extension(f'cogs.cogBert')
+	try:
+		client.load_extension(f'cogs.cogBert')
+	except:
+		pass
 	await ctx.send('Chicos estoy aquí, hablen')
 
 # Comando dormir
@@ -46,7 +49,7 @@ async def duerme(ctx):
 	df.at[str(ctx.channel),'cogBert']=0
 	with open('datos/pasarela_ch','wb') as fh:
 		pickle.dump(df,fh)
-	client.unload_extension(f'cogs.cogBert')
+	#client.unload_extension(f'cogs.cogBert')
 	await ctx.send('Oh no, se me acabó el café')
 	try:
 		mantenimiento.actualizarpickles()
