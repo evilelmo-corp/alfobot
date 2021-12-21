@@ -39,7 +39,8 @@ class CogBert(commands.Cog):
             
             # Intenciones:
             # 0: Info   1: Request  2: Ask  3: Fun
-            await message.channel.send(str(intencion))
+            dic_intencion={0: "Info", 1: "Request",  2: "Ask",  3: "Fun"}
+            await message.channel.send(str(dic_intencion[int(intencion)]))
 
             # Modo Fun (3)
             if int(intencion)==3:
@@ -51,15 +52,17 @@ class CogBert(commands.Cog):
 
             # Modo Request (1)
             elif int(intencion) == 1:
-                tipo_request=modeloNBrequest.decision_request(message.content)
+                tipo_request,probabilidad=modeloNBrequest.decision_request(message.content)
                 await message.channel.send(str(tipo_request))
+                await message.channel.send(str(probabilidad))
                 # Llama a la megafución request
                 #await funRequest.request(lista_tokens,message,client,tipo_request)
 
             # Modo ask (2):
             elif int(intencion)==2:
-                tipo_request=modeloNBask.decision_ask(message.content)
+                tipo_request,probabilidad=modeloNBask.decision_ask(message.content)
                 await message.channel.send(str(tipo_request))
+                await message.channel.send(str(probabilidad))
                 #await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
 
 def setup(client):

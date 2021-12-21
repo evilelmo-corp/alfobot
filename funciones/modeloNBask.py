@@ -7,4 +7,4 @@ with open(f'datos/modelo_ask','rb') as files:
 
 def decision_ask(frase):
 	global NBa
-	return NBa.predict([frase])[0]
+	return NBa.predict([frase])[0],NBa.predict_proba([frase])[0]
