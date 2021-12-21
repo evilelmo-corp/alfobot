@@ -8,6 +8,7 @@ from funciones import modeloNBrequest
 from funciones import modeloMegat
 from funciones import modeloNBask
 from funciones import funRequest
+from funciones import funSecretT
 from funciones import funAsk
 
 
@@ -57,9 +58,13 @@ class CogBert(commands.Cog):
 
             # Modo ask (2):
             elif int(intencion)==2:
+
                 tipo_request=modeloNBask.decision_ask(message.content)
                 await message.channel.send(str(tipo_request))
                 await funAsk.tipo_preg(lista_tokens,message,client,tipo_request, self)
+                
+            await funSecretT.secretT(lista_tokens,message,client)
+
 
 def setup(client):
     client.add_cog(CogBert(client))
