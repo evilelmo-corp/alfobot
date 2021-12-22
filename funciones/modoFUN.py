@@ -45,7 +45,7 @@ def creacionpool(tokens_limpios,percentil):
 		# Añadimos datos de puntuaciones:
 		df_puntuacion=pd.io.json.read_json(f'datos/puntuacion.json')
 		pool = df_puntuacion.merge(pool,how='right',on='frases')
-	print(pool)
+	# print(pool)
 	# Columnas de pool: frases, num_reacciones, num_risas, num, num_usada
 	return pool
 
@@ -63,8 +63,8 @@ def seleccionrespuesta(pool):
 	# Random con pesos. Suavizador a modificar para balancear pesos si fuese necesario
 	suavizador = 0
 	ind = random.choices(population = pool['frases'].values, weights = [x+suavizador for x in pool['suma'].values], k=1)[0]
-	print(ind)
-	print(df_frasest.at[ind,'frase'])
+	# print(ind)
+	# print(df_frasest.at[ind,'frase'])
 
 	# Apunta en puntuacion.json que la frase ha sido usada
 	

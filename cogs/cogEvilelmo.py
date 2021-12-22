@@ -34,9 +34,9 @@ class Espia(commands.Cog):
 			risa = False
 			try:
 				risa = await self.client.wait_for('message', timeout = 60.0, check = checkRisa) # Comprueba si se rien en los 5s siguientes
-				print("risaencontrada")
+				# print("risaencontrada")
 			except:
-				print(risa)
+				# print(risa)
 				pass
 			if risa != False:
 				try:
@@ -45,7 +45,7 @@ class Espia(commands.Cog):
 				except:
 					pass
 				
-				print('risa detectada')
+				# print('risa detectada')
 
 				# Envía gif:
 				embed = discord.Embed(colour=discord.Colour.blue())

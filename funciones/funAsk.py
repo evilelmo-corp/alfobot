@@ -11,7 +11,7 @@ from funciones import funRequest
 async def tipo_preg(lista_tokens,message,client,tipo_request,self):
 #ASK Generar
     if tipo_request == "Generar":
-        await message.channel.send(str("*GENERANDO CONTENIDO*"))
+        #await message.channel.send(str("*GENERANDO CONTENIDO*"))
         try:
             await message.channel.send(modoFUN.funresponse(message,self))
         except:

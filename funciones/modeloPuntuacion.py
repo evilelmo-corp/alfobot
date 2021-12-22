@@ -34,14 +34,14 @@ def guardarreacciones(usuario, mensaje, emoji):
 	if usuario == mensaje.author:
 		num_frase=df_frases[df_frases["frase"]==mensaje.content].index.values[0]
 		if num_frase in df_recepcion['frases'].values:
-			print(df_recepcion[df_recepcion["frases"]==num_frase].index.values)
+			# print(df_recepcion[df_recepcion["frases"]==num_frase].index.values)
 			linea=df_recepcion[df_recepcion["frases"]==num_frase].index.values
 			conjunto=df_recepcion.columns
 			if emoji.name in conjunto:
 				df_recepcion[emoji.name].iat[linea[0]]+=1
-				print("encontrado")
+				# print("encontrado")
 			else:
-				print("no encontrado")
+				# print("no encontrado")
 				df_recepcion[emoji.name]=0
 				df_recepcion[emoji.name].iat[linea[0]]=1
 		else:
@@ -52,9 +52,9 @@ def guardarreacciones(usuario, mensaje, emoji):
 			conjunto=set(df_recepcion.columns)
 			if emoji.name in conjunto:
 				df_recepcion[emoji.name].iat[u_linea]+=1
-				print("encontrado-primeravez")
+				# print("encontrado-primeravez")
 			else:
-				print("no encontradoprimeravez")
+				# print("no encontradoprimeravez")
 				#conjunto.add(emoji)
 				df_recepcion[emoji.name]=0
 				df_recepcion[emoji.name].iat[u_linea]=1

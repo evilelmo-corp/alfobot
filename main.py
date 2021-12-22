@@ -18,9 +18,9 @@ client = commands.Bot(command_prefix = 'Alfobot ', description = "Simplificando 
 
 # Crea df en pickle vacío con las columnas de los cogs para que lo use funPasarelaChannel
 cogs_lista = [i[:-3] for i in os.listdir('./cogs') if i.startswith('cog')]
-print(cogs_lista)
+#print(cogs_lista)
 df=pd.DataFrame(columns=cogs_lista)
-print(df)
+#print(df)
 
 with open('datos/pasarela_ch','wb') as fh:
 	pickle.dump(df,fh)

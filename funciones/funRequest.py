@@ -11,7 +11,7 @@ async def request(lista_tokens,message,client,tipo_request):
 
     # Request Machine Learning
     if tipo_request == "ML":
-        await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
+        #await message.channel.send(str("TOMAS AQUI VA TU MAGIA"))
         #client=self.client
         
         # df.at[str(message.channel),'cogBert']=0
@@ -21,7 +21,7 @@ async def request(lista_tokens,message,client,tipo_request):
         
     # Request Bitcoin
     elif tipo_request == "Bitcoin":
-        await message.channel.send(str("Bitcoin"))
+        #await message.channel.send(str("Bitcoin"))
         msg = funBitcoin.bitcoin()
         await message.channel.send(msg)
 
@@ -47,7 +47,7 @@ async def request(lista_tokens,message,client,tipo_request):
 
     # Request install
     elif tipo_request == "Install":
-        await message.channel.send(str("PIP lo que quieras"))
+        #await message.channel.send(str("PIP lo que quieras"))
         try:
             await message.channel.send(funPypi.pipy(lista_tokens))
         except:

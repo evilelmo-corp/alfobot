@@ -23,9 +23,9 @@ class CogOptimo(commands.Cog):
 		global m
 		with open('datos/pasarela_ch','rb') as fh:
 			df=pickle.load(fh)
-		print(df)
-		print(df.at[str(message.channel),'cogOptimo']==1)
-		print(m)
+		# print(df)
+		# print(df.at[str(message.channel),'cogOptimo']==1)
+		# print(m)
 		if (message.author != self.client.user) and (df.at[str(message.channel),'cogOptimo']==1):
 			if m==0:
 				if ("random" not in message.content.lower()) and ("knn" not in message.content.lower()):
@@ -46,9 +46,9 @@ class CogOptimo(commands.Cog):
 					m=1
 					await message.channel.send("Ahora necesito que me pases el data set en *.csv LIMPIO")
 			elif m==1:
-				print("DEBERIA HABER UN ATTACHMENT")
-				print(message.attachments)
-				print(message.attachments[0])
+				# print("DEBERIA HABER UN ATTACHMENT")
+				# print(message.attachments)
+				# print(message.attachments[0])
 				url=message.attachments[0]
 				r = requests.get(url, allow_redirects=True)
 				with open(f'datos/arc.csv', 'wb') as arc:
@@ -68,7 +68,7 @@ class CogOptimo(commands.Cog):
 				if columna_y != False:
 					await message.channel.send("Soy bueno, pero tampoco una máquina. Esto puede tardar un ratillo")
 					try:
-						print('risa detectada')
+						# print('risa detectada')
 						df_trabajo=pd.read_csv('datos/arc.csv')
 						columnas=list(df_trabajo.columns)
 						y=df_trabajo[columnas[int(message.content)]]
@@ -97,11 +97,11 @@ class CogOptimo(commands.Cog):
 						
 						model_result = grid_solver.fit(X_train,y_train)
 
-						print(model_result.cv_results_["mean_test_recall_macro"].mean())
-						print(model_result.cv_results_["mean_test_f1_macro"].mean())
-						print(model_result.cv_results_["mean_test_accuracy"].mean())
-						print(model_result.best_score_)
-						print(model_result.best_params_)
+						# print(model_result.cv_results_["mean_test_recall_macro"].mean())
+						# print(model_result.cv_results_["mean_test_f1_macro"].mean())
+						# print(model_result.cv_results_["mean_test_accuracy"].mean())
+						# print(model_result.best_score_)
+						# print(model_result.best_params_)
 						await message.channel.send("tus mejores resultados son:")
 						await message.channel.send(model_result.best_params_)
 					except:
@@ -116,7 +116,7 @@ class CogOptimo(commands.Cog):
 					pickle.dump(df,fh)
 				with open(f'funciones/cogactivo.txt',"w") as ca:
 						ca.write("False")
-				print(df)
+				# print(df)
 
 
 def setup(client):
