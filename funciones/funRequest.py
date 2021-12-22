@@ -64,8 +64,10 @@ async def request(lista_tokens,message,client,tipo_request):
             await message.channel.send('Mejor preguntale a Daniela que sabe mucho de esto')
 
     # Request Análisis
+
     elif tipo_request == "Analisis":
-        tags = analRequest.camerino(message.content)
-        await message.channel.send(str("Te analizo lo que quieras, toma"))
-        await message.channel.send(tags)
+        await message.channel.send(str("Te analizo lo que quieras, dame algo"))
+        tags = analRequest.tagger(message.content)
+        await message.channel.send(str(tags))
+
 

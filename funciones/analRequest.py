@@ -2,6 +2,16 @@ import pandas as pd
 import numpy as np
 import pickle
 
+def tagger(frase):
+    with open('datos/columnas', 'rb') as files:
+        colum=pickle.load(files)
+    dfiteo = pd.DataFrame(columns = colum)
+    for i,k in enumerate(camerino(frase)):
+        dfiteo.loc[i] = k
+    with open('datos/RF_all_model' , 'rb') as f:
+        rf = pickle.load(f)
+    return rf.predict(dfiteo)
+
 def camerino(frase):
     with open('datos/columnas', 'rb') as files:
         colum=pickle.load(files)
@@ -24,7 +34,10 @@ def camerino(frase):
                 indice=conjunto.index(co)
                 lista_metible[indice]=df[co].iloc[i]
         listas.append(lista_metible)
+        
     return listas
+
+
 
 
 def listalizador(frase, indice):
@@ -114,7 +127,7 @@ def listalizador(frase, indice):
     return tuple(lista)
 
 def lemmatizer(palabra):
-    with open('rayo_lemmatizador' , 'rb') as f:
+    with open('datos/rayo_lemmatizador' , 'rb') as f:
         rl = pickle.load(f)
     try:
         return rl[rl['Form']==palabra].iloc[0,1]
