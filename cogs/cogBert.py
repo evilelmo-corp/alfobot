@@ -1,6 +1,7 @@
 #Cog Bert - Integración
 import discord 
 from discord.ext import commands
+from numpy.lib.function_base import _interp_dispatcher
 from funciones import modeloBert
 from funciones import modoFUN
 from funciones import modeloPuntuacion
@@ -16,6 +17,8 @@ import pandas as pd
 import pickle
 #from cogs import cogOptimo
 
+global int_dic
+int_dic={0:'Info',1:'Request',2:'Ask',3:'Fun'}
 
 
 class CogBert(commands.Cog):
@@ -36,16 +39,19 @@ class CogBert(commands.Cog):
         if (message.author != self.client.user) and ("jaja" not in message.content) and (cog_activo != "True") and (len(message.content)>1) and (df.at[str(message.channel),'cogBert']==1):
             msglower=message.content.lower()
             lista_tokens = modeloMegat.megatizer(message)[1]
-            intencion=modeloBert.rayo_sesamo(message.content)
+            intencion, porcent=modeloBert.rayo_sesamo(message.content)
+
+            msg='Intención '+str(int_dic[intencion])+' '+str(porcent)
+            await message.channel.send(msg)
             
             # Intenciones:
             # 0: Info   1: Request  2: Ask  3: Fun
             #await message.channel.send(str(intencion))
-
+            
             # Modo Fun (3)
-            if int(intencion)==3:
-                msg='Intención 3 (Fun)'
-                await message.channel.send(msg)
+            # if int(intencion)==3:
+            #     msg='Intención 3 (Fun)'
+            #     await message.channel.send(msg)
                 # try:
                 #     await message.channel.send(modoFUN.funresponse(message,self))
                 # except:
@@ -53,18 +59,18 @@ class CogBert(commands.Cog):
                 
 
             # Modo Request (1)
-            elif int(intencion) == 1:
-                msg='Intención 1 (Request)'
-                await message.channel.send(msg)
+            # elif int(intencion) == 1:
+            #     msg='Intención 1 (Request)'
+            #     await message.channel.send(msg)
                 # tipo_request=modeloNBrequest.decision_request(message.content)
                 # await message.channel.send(str(tipo_request))
                 # # Llama a la megafución request
                 # await funRequest.request(lista_tokens,message,client,tipo_request)
 
             # Modo ask (2):
-            elif int(intencion)==2:
-                msg='Intención 2 (Ask)'
-                await message.channel.send(msg)
+            # elif int(intencion)==2:
+            #     msg='Intención 2 (Ask)'
+            #     await message.channel.send(msg)
 
                 # tipo_request=modeloNBask.decision_ask(message.content)
                 # await message.channel.send(str(tipo_request))
@@ -72,9 +78,9 @@ class CogBert(commands.Cog):
                 
             # await funSecretT.secretT(lista_tokens,message,client)
 
-            elif int(intencion)==0:
-                msg='Intención 0 (Info)'
-                await message.channel.send(msg)
+            # elif int(intencion)==0:
+            #     msg='Intención 0 (Info)'
+            #     await message.channel.send(msg)
 
 
 def setup(client):

@@ -54,4 +54,4 @@ def rayo_sesamo(frase):
 	np.argmax(logits, axis=1).flatten()
 	flat_predictions = [item for sublist in [logits] for item in sublist]
 	flat_predictions = np.argmax(flat_predictions, axis=1).flatten()
-	return flat_predictions[0]
+	return flat_predictions[0], logits
